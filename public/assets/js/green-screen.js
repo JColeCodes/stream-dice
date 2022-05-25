@@ -1,3 +1,5 @@
+document.body.style.backgroundColor = "lime";
+
 async function streamToggle(e) {
     e.preventDefault();
 
