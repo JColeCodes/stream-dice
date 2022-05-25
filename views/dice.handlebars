@@ -1,15 +1,26 @@
-<div class="dice">
-    <div class="dice-img"><img src="/assets/images/dice-1.png" alt="Default Dice" /></div>
-    {{#if loggedIn}}
-        <button id="roll-dice">Roll Dice!</button>
-    {{/if}}
-</div>
+<main>
+    
+    <div class="dice">
+        <div class="dice-img"><img src="/assets/images/dice-1.png" alt="Default Dice" /></div>
+        {{#if loggedIn}}
+            <button id="roll-dice">Roll Dice!</button>
+        {{/if}}
+    </div>
 
-<div class="card">
-    <div class="card-img"></div>
-    {{#if loggedIn}}
-        <button id="pick-card">Pick a Card!</button>
-    {{/if}}
+    <div class="card">
+        <div class="card-img card-back"></div>
+        {{#if loggedIn}}
+            <button id="pick-card">Pick a Card!</button>
+        {{/if}}
+    </div>
+
+</main>
+
+
+<div class="stream-toggle">
+    <button>Toggle Green Screen</button>
 </div>
+<script src="/assets/js/green-screen.js"></script>
+
 
 <script src="/assets/js/socket.js"></script>

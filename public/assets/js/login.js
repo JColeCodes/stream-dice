@@ -1,5 +1,5 @@
-async function diceLogin(event) {
-    event.preventDefault();
+async function diceLogin(e) {
+    e.preventDefault();
 
     const secretCode = document.querySelector('#secret-code').value.trim().toUpperCase();
     

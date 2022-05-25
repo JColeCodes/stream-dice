@@ -1,15 +1,151 @@
+:root {
+    --width: 260px;
+    --fez: #D90C00;
+    --bee: #FBE509;
+    --candy: #db30b9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Fredoka One', cursive;
+  font-size: 16px;
+  line-height: 1;
+  background-color: #222;
+  color: #FFF;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+button,
+button:hover {
+  transition: all 0.5s ease-in-out;
+}
+
+button {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2em;
+    line-height: 1;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    text-transform: uppercase;
+}
+button:hover {
+    cursor: pointer;
+}
+
+.login-page {
+    background-color: #FFF;
+    color: #222;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 6px #000;
+    width: 600px; max-width: 100%;
+}
+.login-page h1 {
+    font-family: 'Luckiest Guy', cursive;
+    font-family: 400;
+    font-size: 3em;
+    color: var(--fez);
+    margin: 0 0 15px;
+}
+.login label, .login input {
+    width: 100%;
+    font-size: 1.5em;
+}
+.login input {
+    font-family: 'Luckiest Guy', cursive;
+    padding: 15px 15px 10px;
+    font-size: 2.6em;
+    line-height: 1;
+    text-align: center;
+    margin: 12px;
+    color: #222;
+    text-transform: uppercase;
+}
+.login input:focus {
+    outline: none;
+    border: 1px solid var(--fez);
+}
+.login button {
+    background-color: var(--fez);
+    color: #FFF;
+}
+.login button:hover {
+    background-color: var(--bee);
+    color: #222;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+main div {
+    padding: 25px;
+}
+
+main div button, .stream-toggle button {
+    color: var(--candy);
+    background-color: #FFF;
+}
+main div button:hover, .stream-toggle button:hover {
+    transform: scale(1.05);
+}
+
 img {
     max-width: 100%;
 }
 
 .dice-img {
-    max-width: 260px;
+    width: var(--width);
+    height: var(--width);
+}
+
+.dice-img img {
+    filter: hue-rotate(-40deg) brightness(150%) grayscale(.2);
+    background-image: url('/assets/images/dice-1.png');
+    background-size: contain;
 }
 
 .card-img {
-    background-color: #db30b9;
-    background-image: url('/assets/images/cardback.png');
-    width: 260px;
-    height: 360px;
+    background-color: #FFF;
+    width: var(--width);
+    height: calc(var(--width) + 100px);
     border-radius: 15px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+.card-img p {
+    font-family: 'Milonga', cursive;
+    font-size: 2em;
+    color: var(--candy);
+    margin: 15px 0 0;
+}
+.card-back {
+    background-color: var(--candy);
+    background-image: url('/assets/images/cardback.png');
+}
+
+.stream-toggle {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
 }

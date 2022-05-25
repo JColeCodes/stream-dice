@@ -1,7 +1,21 @@
 const socket = io(); // SOCKET.IO
 
+const diceImg = document.querySelector('.dice-img');
+
 function randomize(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
+}
+
+function diceRoll(times, dice) {
+    for (let i = 0; i < times; i++) {
+        setTimeout(function() {
+            if (i === times - 1) {
+                diceImg.innerHTML = `<img src="/assets/images/dice-${dice}.png" alt="Dice ${dice}" />`;
+            } else {
+                diceImg.innerHTML = `<img src="/assets/images/dice-${randomize(1, 7)}.png" alt="Rolling..." />`;
+            }
+        }, 150 * i);
+    }
 }
 
 const cards = [
@@ -38,15 +52,16 @@ if (document.querySelector('#roll-dice')) {
 // Socket on taking in the information from the emit
 socket.on('dice', (data) => {
     if (data.current === 'dice') {
-        console.log('DICE:', data.dice);
-        const diceImg = document.querySelector('.dice-img');
-        diceImg.innerHTML = `<img src="/assets/images/dice-${data.dice}.png" alt="Dice ${data.dice}" />`;
+
+        let times = randomize(5, 7);
+        diceRoll(times, data.dice);
+
     }
     else if (data.current === 'card') {
-        console.log('CARD:', cards[data.card].title);
         const cardImg = document.querySelector('.card-img');
+        cardImg.classList.remove('card-back');
         cardImg.innerHTML = `<img src="/assets/images/${cards[data.card].image}.png"
-            alt="Dice ${cards[data.card].title}" />
+            alt="${cards[data.card].title}" />
             <p>${cards[data.card].title}</p>`;
 
     }
