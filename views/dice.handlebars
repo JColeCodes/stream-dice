@@ -1,14 +1,20 @@
 <main>
     
-    <div class="dice">
+    <div class="item">
         <div class="dice-img"><img src="/assets/images/dice-1.png" alt="Default Dice" /></div>
         {{#if loggedIn}}
             <button id="roll-dice">Roll Dice!</button>
         {{/if}}
     </div>
 
-    <div class="card">
-        <div class="card-img card-back"></div>
+    <div class="item">
+        <div class="card flip">
+            <div class="card-wrap">
+                <div class="card-style card-img"></div>
+                <div class="card-style card-back"></div>
+            </div>
+        </div>
+        
         {{#if loggedIn}}
             <button id="pick-card">Pick a Card!</button>
         {{/if}}
@@ -18,7 +24,7 @@
 
 
 <div class="stream-toggle">
-    <button>Toggle Green Screen</button>
+    <button>Stream Toggle</button>
 </div>
 <script src="/assets/js/green-screen.js"></script>
 

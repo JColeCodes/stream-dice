@@ -18,6 +18,13 @@ function diceRoll(times, dice) {
     }
 }
 
+function displayCard(card) {
+    const cardImg = document.querySelector('.card-img');
+    cardImg.innerHTML = `<img src="/assets/images/${cards[card].image}.png"
+        alt="${cards[card].title}" />
+        <p>${cards[card].title}</p>`;
+}
+
 const cards = [
     { title: 'Candycane Forest', image: 'candycane' },
     { title: 'Peanut Acres', image: 'nuts' },
@@ -58,11 +65,19 @@ socket.on('dice', (data) => {
 
     }
     else if (data.current === 'card') {
-        const cardImg = document.querySelector('.card-img');
-        cardImg.classList.remove('card-back');
-        cardImg.innerHTML = `<img src="/assets/images/${cards[data.card].image}.png"
-            alt="${cards[data.card].title}" />
-            <p>${cards[data.card].title}</p>`;
-
+        const card = document.querySelector('.card');
+        if (card.classList.contains('flip')) {
+            card.classList.toggle('flip');
+            displayCard(data.card);
+        } else {
+            for (let i = 0; i < 2; i++) {
+                setTimeout(function() {
+                    card.classList.toggle('flip');
+                    if (i === 1) {
+                        displayCard(data.card);
+                    }
+                }, 600 * i);
+            }
+        }
     }
 });

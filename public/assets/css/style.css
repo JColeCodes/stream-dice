@@ -93,15 +93,15 @@ main {
     align-items: center;
     text-align: center;
 }
-main div {
+main .item {
     padding: 25px;
 }
 
-main div button, .stream-toggle button {
+main .item button, .stream-toggle button {
     color: var(--candy);
     background-color: #FFF;
 }
-main div button:hover, .stream-toggle button:hover {
+main .item button:hover, .stream-toggle button:hover {
     transform: scale(1.05);
 }
 
@@ -112,26 +112,53 @@ img {
 .dice-img {
     width: var(--width);
     height: var(--width);
+    margin-bottom: 25px;
 }
 
 .dice-img img {
     filter: hue-rotate(-40deg) brightness(150%) grayscale(.2);
     background-image: url('/assets/images/dice-1.png');
     background-size: contain;
+    width: 100%; height: 100%;
 }
 
-.card-img {
-    background-color: #FFF;
+.card {
+    background: transparent;
     width: var(--width);
     height: calc(var(--width) + 100px);
-    border-radius: 15px;
+    perspective: 1200px;
     margin-bottom: 40px;
+}
+.card.flip .card-wrap {
+    transform: rotateY(180deg);
+}
+.card-wrap {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+.card-style {
+    border-radius: 15px;
+    position: absolute;
+    width: 100%; height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    padding: 25px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.2);
+}
+.card-back {
+    background-color: var(--candy);
+    background-image: url('/assets/images/cardback.png');
+    transform: rotateY(180deg);
+}
+.card-img {
+    background-color: #FFF;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-
 }
 .card-img p {
     font-family: 'Milonga', cursive;
@@ -139,13 +166,14 @@ img {
     color: var(--candy);
     margin: 15px 0 0;
 }
-.card-back {
-    background-color: var(--candy);
-    background-image: url('/assets/images/cardback.png');
-}
 
 .stream-toggle {
     position: absolute;
-    bottom: 25px;
-    right: 25px;
+    bottom: 15px;
+    right: 15px;
+}
+.stream-toggle button {
+    color: limegreen;
+    font-size: 1em;
+    padding: 10px;
 }
