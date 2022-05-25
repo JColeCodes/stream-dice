@@ -79,5 +79,8 @@ socket.on('dice', (data) => {
                 }, 600 * i);
             }
         }
+        setTimeout(function() {
+            card.classList.add('flip');
+        }, 60000);
     }
 });
