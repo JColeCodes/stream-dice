@@ -1,0 +1,15 @@
+img {
+    max-width: 100%;
+}
+
+.dice-img {
+    max-width: 260px;
+}
+
+.card-img {
+    background-color: #db30b9;
+    background-image: url('/assets/images/cardback.png');
+    width: 260px;
+    height: 360px;
+    border-radius: 15px;
+}

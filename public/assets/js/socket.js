@@ -5,12 +5,12 @@ function randomize(min, max) {
 }
 
 const cards = [
-    'Candycane Forest',
-    'Peanut Acres',
-    'Licorice Forest',
-    'Snow Flake Lake',
-    'Lollipop Woods',
-    'Chocolate Swamp'
+    { title: 'Candycane Forest', image: 'candycane' },
+    { title: 'Peanut Acres', image: 'nuts' },
+    { title: 'Licorice Forest', image: 'licorice' },
+    { title: 'Snow Flake Lake', image: 'cottoncandy' },
+    { title: 'Lollipop Woods', image: 'lollipop' },
+    { title: 'Chocolate Swamp', image: 'chocolate' }
 ];
 
 document.querySelector('#roll-dice').addEventListener('click', (event) => {
@@ -37,8 +37,15 @@ document.querySelector('#pick-card').addEventListener('click', (event) => {
 socket.on('dice', (data) => {
     if (data.current === 'dice') {
         console.log('DICE:', data.dice);
+        const diceImg = document.querySelector('.dice-img');
+        diceImg.innerHTML = `<img src="/assets/images/dice-${data.dice}.png" alt="Dice ${data.dice}" />`;
     }
     else if (data.current === 'card') {
-        console.log('CARD:', cards[data.card]);
+        console.log('CARD:', cards[data.card].title);
+        const cardImg = document.querySelector('.card-img');
+        cardImg.innerHTML = `<img src="/assets/images/${cards[data.card].image}.png"
+            alt="Dice ${cards[data.card].title}" />
+            <p>${cards[data.card].title}</p>`;
+
     }
 });
