@@ -13,25 +13,27 @@ const cards = [
     { title: 'Chocolate Swamp', image: 'chocolate' }
 ];
 
-document.querySelector('#roll-dice').addEventListener('click', (event) => {
-    event.preventDefault();
-    
-    // Emit the following information
-    socket.emit('dice', {
-        current: 'dice',
-        dice: randomize(1, 7)
+if (document.querySelector('#roll-dice')) {
+    document.querySelector('#roll-dice').addEventListener('click', (event) => {
+        event.preventDefault();
+        
+        // Emit the following information
+        socket.emit('dice', {
+            current: 'dice',
+            dice: randomize(1, 7)
+        });
     });
-});
 
-document.querySelector('#pick-card').addEventListener('click', (event) => {
-    event.preventDefault();
-    
-    // Emit the following information
-    socket.emit('dice', {
-        current: 'card',
-        card: randomize(0, 6)
+    document.querySelector('#pick-card').addEventListener('click', (event) => {
+        event.preventDefault();
+        
+        // Emit the following information
+        socket.emit('dice', {
+            current: 'card',
+            card: randomize(0, 6)
+        });
     });
-});
+}
   
 // Socket on taking in the information from the emit
 socket.on('dice', (data) => {

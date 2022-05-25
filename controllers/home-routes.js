@@ -1,14 +1,17 @@
 const router = require('express').Router();
-const { login } = require('./user-controller');
+
+require('dotenv').config();
 
 router.get(('/'), (req, res) => {
     res.render('login');
 });
 
-router.post('/api/login', login);
-
 router.route('/dice').get((req, res) => {
-    res.render('dice');
+    res.render('dice', { loggedIn: false });
+});
+
+router.route('/' + process.env.SECRET_CODE).get((req, res) => {
+    res.render('dice', { loggedIn: true });
 });
 
 router.get('*', (req, res) => {

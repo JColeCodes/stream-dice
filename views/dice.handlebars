@@ -1,11 +1,15 @@
 <div class="dice">
     <div class="dice-img"><img src="/assets/images/dice-1.png" alt="Default Dice" /></div>
-    <button id="roll-dice">Roll Dice!</button>
+    {{#if loggedIn}}
+        <button id="roll-dice">Roll Dice!</button>
+    {{/if}}
 </div>
 
 <div class="card">
     <div class="card-img"></div>
-    <button id="pick-card">Pick a Card!</button>
+    {{#if loggedIn}}
+        <button id="pick-card">Pick a Card!</button>
+    {{/if}}
 </div>
 
 <script src="/assets/js/socket.js"></script>
