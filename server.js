@@ -30,6 +30,9 @@ io.on('connection', (socket) => {
   socket.on('dice', (dice) => {
     io.emit('dice', dice);
   });
+  socket.on('life', (life) => {
+    io.emit('life', life);
+  });
 });
 
 // Turn on connection to db and server

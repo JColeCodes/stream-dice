@@ -1,0 +1,32 @@
+:root {
+    --career: #1d7fcb;
+    --house: #f97d2b;
+    --action: #f8c837;
+}
+
+.hidden  {
+  transition: all 0.5s ease-in-out;
+}
+
+button { margin-top: 10px; opacity: 1; }
+select {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2em;
+    line-height: 1;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    color: var(--candy);
+    text-transform: uppercase;
+    display: block;
+}
+
+.card-back {
+    background-color: var(--career);
+    background-image: none;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
