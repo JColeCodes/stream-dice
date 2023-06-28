@@ -1,11 +1,12 @@
 :root {
-    --career: #1d7fcb;
+    --career: #1491d2;
     --house: #f97d2b;
     --action: #f8c837;
+    --family: #dd2877;
 }
 
-.hidden  {
-  transition: all 0.5s ease-in-out;
+body {
+    overflow: hidden;
 }
 
 button { margin-top: 10px; opacity: 1; }
@@ -14,19 +15,71 @@ select {
     font-size: 1.2em;
     line-height: 1;
     border: none;
-    padding: 12px 15px;
+    padding: 12px 35px 12px 15px;
     border-radius: 8px;
-    color: var(--candy);
+    color: var(--family);
     text-transform: uppercase;
     display: block;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23dd2877' stroke-linecap='round' stroke-linejoin='round' stroke-width='5' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 16px 12px;
+}
+main .item button, .stream-toggle button {
+    color: var(--family);
+}
+
+.card-stack {
+    position: relative;
+    width: var(--width);
+    height: calc(var(--width) + 100px);
+    margin-bottom: 40px;
+}
+
+.card {
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    left: 10px;
 }
 
 .card-back {
-    background-color: var(--career);
+    background-color: white;
     background-image: none;
+    /* transform: translate(0, 0) rotateY(180deg); */
 }
 
-.hidden {
+.card-back.career {
+    background-color: var(--career);
+}
+.card-back.house {
+    background-color: var(--house);
+}
+.card-back.action {
+    background-color: var(--action);
+}
+
+.card-show {
+    animation: cardShow 500ms ease-in-out 1 both;
+}
+.card-hidden {
+    /* transition: all 0.5s ease-in-out; */
+    /* transform: translate(200vw, 0) rotateY(180deg); */
     opacity: 0;
     pointer-events: none;
+    animation: cardHide 500ms ease-in-out 1 both;
 }
+@keyframes cardShow {
+    from {transform: translate(200vw, 0) rotateY(180deg);}
+    to {transform: translate(0, 0) rotateY(180deg);}
+}
+@keyframes cardHide {
+    from {transform: translate(0, 0) rotateY(180deg);}
+    to {transform: translate(200vw, 0) rotateY(180deg);}
+}
+
+/* .hidden {
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+} */
