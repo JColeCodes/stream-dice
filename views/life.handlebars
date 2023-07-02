@@ -1,9 +1,9 @@
-<main>
+<main class="life">
     
     <div class="item">
         <div class="spin">Spin wheel goes here</div>
         {{#if loggedIn}}
-            <button id="roll-dice">Roll Dice!</button>
+            <button id="spin-wheel">Spin the wheel!</button>
         {{/if}}
     </div>
 
@@ -12,41 +12,59 @@
             <div class="card flip card-hidden">
                 <div class="card-wrap">
                     <div class="card-style card-img"></div>
-                    <div class="card-style card-back"></div>
+                    <div class="card-style card-back">
+                        <img src="/assets/images/LIFE/lifelogo.png" alt="Game of Life" />
+                        <span class="card-title"></span>
+                    </div>
                 </div>
             </div>
             <div class="card flip right card-hidden">
                 <div class="card-wrap">
                     <div class="card-style card-img"></div>
-                    <div class="card-style card-back"></div>
+                    <div class="card-style card-back">
+                        <img src="/assets/images/LIFE/lifelogo.png" alt="Game of Life" />
+                        <span class="card-title"></span>
+                    </div>
                 </div>
             </div>
             <div class="card flip left card-hidden">
                 <div class="card-wrap">
                     <div class="card-style card-img"></div>
-                    <div class="card-style card-back"></div>
+                    <div class="card-style card-back">
+                        <img src="/assets/images/LIFE/lifelogo.png" alt="Game of Life" />
+                        <span class="card-title"></span>
+                    </div>
                 </div>
             </div>
         </div>
         
         {{#if loggedIn}}
-            <select name="card-type" id="pick-card-type">
-                <option value="select-type">Select Type of Card</option>
-                <option value="career">Career</option>
-                <option value="house">House</option>
-                <option value="action">Action</option>
-            </select>
-            <button id="pick-card" class="hidden">Pick a Card!</button>
+            <div class="card-face-options" id="pick-card-type">
+                <button id="pick-career">Career</button>
+                <button id="pick-house">House</button>
+                <button id="pick-action">Action</button>
+                <div class="other-btns">
+                    <button id="card-reset" class="hidden">Reset Cards</button>
+                </div>
+            </div>
+            {{!-- <button id="pick-card" class="hidden">Pick a Card!</button> --}}
         {{/if}}
     </div>
-
 </main>
 
+{{#if loggedIn}}
+{{!-- For logged-in view only --}}
+    {{!-- <div class="info-panel">
+        <h3>How to play:</h3>
+        <ul>
+            <li>The default spinner</li>
+        </ul>
+    </div> --}}
 
-<div class="stream-toggle">
-    <button>Stream Toggle</button>
-</div>
+    <div class="stream-toggle">
+        <button>Stream Toggle</button>
+    </div>
+{{/if}}
 <script src="/assets/js/green-screen.js"></script>
-
 
 <script src="/assets/js/socket-life.js"></script>

@@ -1,5 +1,5 @@
 :root {
-    --width: 260px;
+    --width: 300px;
     --fez: #D90C00;
     --bee: #FBE509;
     --candy: #db30b9;
@@ -125,7 +125,7 @@ img {
 .card {
     background: transparent;
     width: var(--width);
-    height: calc(var(--width) + 100px);
+    height: calc(var(--width) + 120px);
     perspective: 1200px;
     margin-bottom: 40px;
 }

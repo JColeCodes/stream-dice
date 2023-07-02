@@ -9,5 +9,6 @@ async function streamToggle(e) {
         document.body.style.backgroundColor = "lime";
     }
 }
-
-document.querySelector('.stream-toggle button').addEventListener('click', streamToggle);
+if (document.querySelector('.stream-toggle button')) {
+    document.querySelector('.stream-toggle button').addEventListener('click', streamToggle);
+}

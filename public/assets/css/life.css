@@ -9,8 +9,14 @@ body {
     overflow: hidden;
 }
 
+main.life {
+    font-family: 'Akshar', sans-serif;
+    font-weight: 500;
+    /* gap: 100px; */
+}
+
 button { margin-top: 10px; opacity: 1; }
-select {
+/* select {
     font-family: 'Fredoka One', cursive;
     font-size: 1.2em;
     line-height: 1;
@@ -25,9 +31,30 @@ select {
     background-position: right 0.75rem center;
     background-repeat: no-repeat;
     background-size: 16px 12px;
-}
+} */
 main .item button, .stream-toggle button {
     color: var(--family);
+}
+
+button#pick-career {
+    background-color: var(--career);
+}
+button#pick-house {
+    background-color: var(--house);
+}
+button#pick-action {
+    background-color: var(--action);
+}
+button#pick-career, button#pick-house, button#pick-action {
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.4);
+}
+
+button#card-reset {
+    padding: 10px;
+    font-size: .8em;
+    background-color: var(--family);
+    color: #fff;
 }
 
 .card-stack {
@@ -46,7 +73,14 @@ main .item button, .stream-toggle button {
 .card-back {
     background-color: white;
     background-image: none;
-    /* transform: translate(0, 0) rotateY(180deg); */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.card-back img {
+    transform: scaleX(-1);
 }
 
 .card-back.career {
@@ -59,12 +93,21 @@ main .item button, .stream-toggle button {
     background-color: var(--action);
 }
 
+.card-back .card-title {
+    transform: scaleX(-1);
+    text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+    font-size: 2.5em;
+    margin: 20px 0;
+    width: 100%;
+}
+.card-style {
+    box-shadow: 2px 2px 5px rgba(0,0,0,.08);
+}
+
 .card-show {
     animation: cardShow 500ms ease-in-out 1 both;
 }
 .card-hidden {
-    /* transition: all 0.5s ease-in-out; */
-    /* transform: translate(200vw, 0) rotateY(180deg); */
     opacity: 0;
     pointer-events: none;
     animation: cardHide 500ms ease-in-out 1 both;
@@ -83,3 +126,20 @@ main .item button, .stream-toggle button {
     opacity: 0;
     pointer-events: none;
 } */
+
+.spin {
+    background-color: #fff;
+    /* width: 500px;
+    height: 500px; */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--family);
+}
+
+.info-panel {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 100%;
+    color: #000;
+}

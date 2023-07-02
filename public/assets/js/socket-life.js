@@ -12,27 +12,42 @@ function displayCard(card) {
 }
 
 if (document.querySelector('#pick-card-type')) {
-    document.querySelector('#pick-card-type').addEventListener('change', event => {
-        if (event.target.value === 'select-type') {
-            document.querySelector('#pick-card').classList.add('hidden');
-        } else {
-            document.querySelector('#pick-card').classList.remove('hidden');
-        }
+    // document.querySelector('#pick-card-type').addEventListener('change', event => {
+    //     if (event.target.value === 'select-type') {
+    //         document.querySelector('#pick-card').classList.add('hidden');
+    //     } else {
+    //         document.querySelector('#pick-card').classList.remove('hidden');
+    //     }
 
-        socket.emit('life', {
-            current: 'card-type',
-            value: event.target.value
-        });
-    });
+    //     socket.emit('life', {
+    //         current: 'card-type',
+    //         value: event.target.value
+    //     });
+    // });
 
-    document.querySelector('#pick-card').addEventListener('click', (event) => {
-        event.preventDefault();
+    // document.querySelector('#pick-card').addEventListener('click', (event) => {
+    //     event.preventDefault();
         
-        // Emit the following information
-        socket.emit('life', {
-            current: 'card-face',
-            card: randomize(0, 6)
-        });
+    //     // Emit the following information
+    //     socket.emit('life', {
+    //         current: 'card-face',
+    //         card: randomize(0, 6)
+    //     });
+    // });
+    
+    document.querySelectorAll('.card-face-options button').forEach(button => {
+        button.addEventListener('click', e => {
+            e.preventDefault();
+
+            const typeID = button.id.split('-')[1];
+
+            // Emit the following information
+            socket.emit('life', {
+                current: 'card-type',
+                type: typeID,
+                card: randomize(0, 6)
+            });
+        })
     });
 }
   
@@ -63,42 +78,51 @@ socket.on('life', (data) => {
             card.classList.add('flip');
         }, 60000);
     } else if (data.current === 'card-type') {
-        const card = document.querySelector('.card');
-        const cardBack = document.querySelector('.card-back');
+        // const card = document.querySelector('.card');
+        // const cardBack = document.querySelector('.card-back');
 
-        if (data.value === 'select-type') {
-            card.classList.add('card-hidden');
-            card.classList.remove('card-show');
-        } else {
-            if (card.classList.contains('card-show')) {
+        document.querySelectorAll('.card').forEach(card => {
+            const cardBack = card.querySelector('.card-back');
+            const cardTitle = card.querySelector('.card-title');
+
+            if (data.type === 'reset') {
+                card.classList.add('card-hidden');
+                card.classList.remove('card-show');
+            } else {
+                if (card.classList.contains('card-show')) {
+                    card.classList.remove('card-show');
+                    card.classList.add('card-hidden');
+                }
+                setTimeout(() => {
+                    if (card.classList.contains('card-hidden')) {
+                        card.classList.remove('card-hidden');
+                        card.classList.add('card-show');
+                        cardTitle.textContent = '';
+                    }
+                    cardBack.classList.remove('career');
+                    cardBack.classList.remove('house');
+                    cardBack.classList.remove('action');
+
+                    if (data.type === 'career') {
+                        cardBack.classList.add('career');
+                        cardTitle.textContent = 'Careers';
+                    }
+                    else if (data.type === 'house') {
+                        cardBack.classList.add('house');
+                        cardTitle.textContent = 'Houses';
+                    }
+                    else if (data.type === 'action') {
+                        cardBack.classList.add('action');
+                        cardTitle.textContent = 'Actions';
+                    }
+                }, 200);
+            }
+
+            // Hides after 2 minutes
+            setTimeout(() => {
                 card.classList.remove('card-show');
                 card.classList.add('card-hidden');
-            }
-            setTimeout(() => {
-                if (card.classList.contains('card-hidden')) {
-                    card.classList.remove('card-hidden');
-                    card.classList.add('card-show');
-                }
-                cardBack.classList.remove('career');
-                cardBack.classList.remove('house');
-                cardBack.classList.remove('action');
-
-                if (data.value === 'career') {
-                    cardBack.classList.add('career');
-                }
-                else if (data.value === 'house') {
-                    cardBack.classList.add('house');
-                }
-                else if (data.value === 'action') {
-                    cardBack.classList.add('action');
-                }
-            }, 200);
-        }
-
-        // Hides after 1 minute
-        setTimeout(() => {
-            card.classList.remove('card-show');
-            card.classList.add('card-hidden');
-        }, 60000);
+            }, 120000);
+        });
     }
 });
