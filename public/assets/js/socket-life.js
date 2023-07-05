@@ -4,12 +4,52 @@ function randomize(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-function displayCard(card) {
-    const cardImg = document.querySelector('.card-img');
-    // cardImg.innerHTML = `<img src="/assets/images/${cards[card].image}.png"
-    //     alt="${cards[card].title}" />
-    //     <p>${cards[card].title}</p>`;
+function displayCard(card, card_type, side) {
+    const cardImg = document.querySelector(side).querySelector('.card-img');
+    if (card_type === 'career') {
+        cardImg.innerHTML = `<img src="assets/images/LIFE/${card_type}/${careerCards[card].image}.png"
+            alt="${careerCards[card].title}" />
+            <p>${careerCards[card].title}</p>`;
+    } else if (card_type === 'house') {
+        cardImg.innerHTML = 'This is a HOUSE card!!!! ';
+    } else if (card_type === 'action') {
+        cardImg.innerHTML = 'And this one is for ACTION.';
+    }
 }
+
+// CAREER CARDS
+const careerCards = [
+    { title: 'Actor', image: 'actor', salary: '', taxes: '' },
+    { title: 'Artist', image: 'artist', salary: '', taxes: '' },
+    { title: 'Astronaut', image: 'astronaut', salary: '', taxes: '' },
+    { title: 'Athlete', image: 'athlete', salary: '', taxes: '' },
+    { title: 'Babysitter', image: 'babysitter', salary: '', taxes: '' },
+    { title: 'Chef', image: 'chef', salary: '', taxes: '' },
+    { title: 'Civil Designer', image: 'civildesigner', salary: '', taxes: '' },
+    { title: 'Criminal', image: 'criminal', salary: '', taxes: '' },
+    { title: 'Critic', image: 'critic', salary: '', taxes: '' },
+    { title: 'Detective', image: 'detective', salary: '', taxes: '' },
+    { title: 'Doctor', image: 'doctor', salary: '', taxes: '' },
+    { title: 'Lawyer', image: 'lawyer', salary: '', taxes: '' },
+    { title: 'Lifeguard', image: 'lifeguard', salary: '', taxes: '' },
+    { title: 'Politician', image: 'politician', salary: '', taxes: '' },
+    { title: 'Scientist', image: 'scientist', salary: '', taxes: '' },
+    { title: 'Secret Agent', image: 'secretagent', salary: '', taxes: '' },
+    { title: 'Simfluencer', image: 'simfluencer', salary: '', taxes: '' },
+    { title: 'Streamer', image: 'streamer', salary: '', taxes: '' },
+    { title: 'Teacher', image: 'teacher', salary: '', taxes: '' },
+    { title: 'Tech Guru', image: 'techguru', salary: '', taxes: '' },
+];
+
+// HOUSE CARDS
+const houseCards = [
+    { title: '', image: '', price: '', maxSell: '' },
+];
+
+// ACTION CARDS
+const actionCards = [
+    { title: '', image: '', type: '', reward: '' },
+];
 
 if (document.querySelector('#pick-card-type')) {
     // document.querySelector('#pick-card-type').addEventListener('change', event => {
@@ -44,10 +84,43 @@ if (document.querySelector('#pick-card-type')) {
             // Emit the following information
             socket.emit('life', {
                 current: 'card-type',
-                type: typeID,
-                card: randomize(0, 6)
+                type: typeID
             });
         })
+    });
+
+    const cardStack = document.querySelector('.card-stack');
+    cardStack.addEventListener('click', e => {
+        e.preventDefault();
+
+        let cardInfoA = 0;
+        let cardInfoB = 0;
+        const typeID = cardStack.dataset.type;
+
+        if (cardStack.querySelector('.left').classList.contains('flip')) {
+            if (typeID === 'career') {
+                cardInfoA = randomize(0, 19);
+                cardInfoB = randomize(0, 19);
+                // while (cardInfoA === cardInfoB) {
+                //     cardInfoB = randomize(0, 19);
+                // }
+            }
+            else if (typeID === 'house') {
+                cardInfoA = randomize(0, 1);
+                cardInfoB = randomize(0, 1);
+            }
+            else if (typeID === 'action') {
+                cardInfoA = randomize(0, 1);
+                cardInfoB = randomize(0, 1);
+            }
+        }
+
+        socket.emit('life', {
+            current: 'card-flip',
+            type: typeID,
+            cardA: cardInfoA,
+            cardB: cardInfoB,
+        });
     });
 }
   
@@ -78,13 +151,21 @@ socket.on('life', (data) => {
             card.classList.add('flip');
         }, 60000);
     } else if (data.current === 'card-type') {
-        // const card = document.querySelector('.card');
-        // const cardBack = document.querySelector('.card-back');
+        const cardStack = document.querySelector('.card-stack');
+
+        cardStack.dataset.type = data.type;
 
         document.querySelectorAll('.card').forEach(card => {
             const cardBack = card.querySelector('.card-back');
             const cardTitle = card.querySelector('.card-title');
 
+            if (!card.classList.contains('flip')) {
+                card.classList.add('flip');
+            }
+            if (card.classList.contains('move-left') || card.classList.contains('move-right')) {
+                card.classList.remove('move-left');
+                card.classList.remove('move-right');
+            }
             if (data.type === 'reset') {
                 card.classList.add('card-hidden');
                 card.classList.remove('card-show');
@@ -124,5 +205,27 @@ socket.on('life', (data) => {
                 card.classList.add('card-hidden');
             }, 120000);
         });
+    } else if (data.current === 'card-flip') {
+        const cardStack = document.querySelector('.card-stack');
+        const leftCard = cardStack.querySelector('.left');
+        const rightCard = cardStack.querySelector('.right');
+
+        if (leftCard.classList.contains('flip')) {
+            leftCard.classList.remove('flip');
+            leftCard.classList.add('move-left');
+            displayCard(data.cardA, data.type, '.left');
+        } else {
+            leftCard.classList.add('flip');
+            leftCard.classList.remove('move-left');
+        }
+
+        if (rightCard.classList.contains('flip')) {
+            rightCard.classList.remove('flip');
+            rightCard.classList.add('move-right');
+            displayCard(data.cardB, data.type, '.right');
+        } else {
+            rightCard.classList.add('flip');
+            rightCard.classList.remove('move-right');
+        }
     }
 });

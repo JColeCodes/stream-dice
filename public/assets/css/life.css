@@ -12,7 +12,8 @@ body {
 main.life {
     font-family: 'Akshar', sans-serif;
     font-weight: 500;
-    /* gap: 100px; */
+    user-select: none;
+    gap: 150px;
 }
 
 button { margin-top: 10px; opacity: 1; }
@@ -69,6 +70,9 @@ button#card-reset {
     position: absolute;
     left: 10px;
 }
+.card:hover {
+    cursor: pointer;
+}
 
 .card-back {
     background-color: white;
@@ -120,6 +124,28 @@ button#card-reset {
     from {transform: translate(0, 0) rotateY(180deg);}
     to {transform: translate(200vw, 0) rotateY(180deg);}
 }
+
+.move-left {
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    left: -160px;
+}
+.move-right {
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    left: 160px;
+}
+
+
+.card-img {
+    transform: scaleX(-1);
+    color: #1d2328;
+}
+.card-img p {
+    font-family: 'Akshar', sans-serif;
+    color: var(--family);
+}
+
 
 /* .hidden {
     transition: all 0.5s ease-in-out;
