@@ -74,6 +74,18 @@ if (document.querySelector('#pick-card-type')) {
     //         card: randomize(0, 6)
     //     });
     // });
+
+    document.querySelector('#spin-wheel').addEventListener('click', e=> {
+        e.preventDefault();
+
+        const randomSpin = (randomize(8, 12) * 360) + randomize(0, 359);
+
+        socket.emit('life', {
+            current: 'spinner-spin',
+            spin: randomSpin
+        });
+
+    })
     
     document.querySelectorAll('.card-face-options button').forEach(button => {
         button.addEventListener('click', e => {
@@ -126,30 +138,73 @@ if (document.querySelector('#pick-card-type')) {
   
 // Socket on taking in the information from the emit
 socket.on('life', (data) => {
-    if (data.current === 'dice') {
+    if (data.current === 'spinner-spin') {
+        const baseSpin = data.spin%360;
+        const resultEl = document.querySelector('#spin-result');
 
-        let times = randomize(5, 7);
-        diceRoll(times, data.dice);
-
-    }
-    else if (data.current === 'card-face') {
-        const card = document.querySelector('.card');
-        if (card.classList.contains('flip')) {
-            card.classList.toggle('flip');
-            displayCard(data.card);
-        } else {
-            for (let i = 0; i < 2; i++) {
-                setTimeout(function() {
-                    card.classList.toggle('flip');
-                    if (i === 1) {
-                        displayCard(data.card);
-                    }
-                }, 600 * i);
-            }
+        if (!resultEl.classList.contains('hidden')) {
+            resultEl.classList.add('hidden');
         }
-        setTimeout(function() {
-            card.classList.add('flip');
-        }, 60000);
+
+        const spinners = document.querySelectorAll('.spinner');
+        spinners.forEach(spinner => {
+            spinner.style.transform = `rotate(${data.spin}deg)`;
+
+            setTimeout(() => {
+                spinner.classList.add('no-transition');
+                spinner.style.transform = `rotate(${baseSpin}deg)`;
+                setTimeout(() => {
+                    spinner.classList.remove('no-transition');
+                }, 100);
+            }, 5500);
+        });
+
+        if (document.querySelector('.spin').dataset.type === 'numbers'){
+            let number = 0;
+            setTimeout(() => {
+                if (baseSpin >= 0 && baseSpin < 36) {
+                    number = 10;
+                    resultEl.style.backgroundColor = '#00dae0';
+                } else if (baseSpin >= 36 && baseSpin < 72) {
+                    number = 9;
+                    resultEl.style.backgroundColor = '#00aeff';
+                } else if (baseSpin >= 72 && baseSpin < 108) {
+                    number = 8;
+                    resultEl.style.backgroundColor = '#4a54ff';
+                } else if (baseSpin >= 108 && baseSpin < 144) {
+                    number = 7;
+                    resultEl.style.backgroundColor = '#8b53ff';
+                } else if (baseSpin >= 144 && baseSpin < 180) {
+                    number = 6;
+                    resultEl.style.backgroundColor = '#ce20ff';
+                } else if (baseSpin >= 180 && baseSpin < 216) {
+                    number = 5;
+                    resultEl.style.backgroundColor = '#ff00ff';
+                } else if (baseSpin >= 216 && baseSpin < 252) {
+                    number = 4;
+                    resultEl.style.backgroundColor = '#ff0000';
+                } else if (baseSpin >= 252 && baseSpin < 288) {
+                    number = 3;
+                    resultEl.style.backgroundColor = '#ff9d00';
+                } else if (baseSpin >= 288 && baseSpin < 324) {
+                    number = 2;
+                    resultEl.style.backgroundColor = '#ffe700';
+                } else if (baseSpin >= 324 && baseSpin < 360) {
+                    number = 1;
+                    resultEl.style.backgroundColor = '#fefc00';
+                }
+
+                resultEl.querySelector('p').textContent = number;
+            }, 5000);
+        }
+
+        setTimeout(() => {
+            resultEl.classList.remove('hidden');
+        }, 5500);
+        setTimeout(() => {
+            resultEl.classList.add('hidden');
+        }, 120000);
+
     } else if (data.current === 'card-type') {
         const cardStack = document.querySelector('.card-stack');
 
@@ -199,7 +254,7 @@ socket.on('life', (data) => {
                 }, 200);
             }
 
-            // Hides after 2 minutes
+            // Hides after 1.2 minutes
             setTimeout(() => {
                 card.classList.remove('card-show');
                 card.classList.add('card-hidden');

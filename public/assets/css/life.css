@@ -13,10 +13,15 @@ main.life {
     font-family: 'Akshar', sans-serif;
     font-weight: 500;
     user-select: none;
-    gap: 150px;
+    /* gap: 150px; */
 }
 
-button { margin-top: 10px; opacity: 1; }
+button {
+    margin-top: 10px;
+    opacity: 1;
+    z-index: 100;
+    position: relative;
+}
 /* select {
     font-family: 'Fredoka One', cursive;
     font-size: 1.2em;
@@ -51,7 +56,7 @@ button#pick-career, button#pick-house, button#pick-action {
     text-shadow: 1px 1px 0 rgba(0,0,0,.4);
 }
 
-button#card-reset {
+button#card-reset, button#spin-result-reset {
     padding: 10px;
     font-size: .8em;
     background-color: var(--family);
@@ -154,18 +159,59 @@ button#card-reset {
 } */
 
 .spin {
-    background-color: #fff;
-    /* width: 500px;
-    height: 500px; */
-    border-radius: 50%;
+    /* background-color: #fff; */
+    width: 500px;
+    height: 500px;
+    /* border-radius: 50%; */
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--family);
+    position: relative;
+}
+.spinner {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    transition: all 5s cubic-bezier(.18,.05,.17,1);
+}
+.spin .arrow {
+    position: absolute;
+    top: -50px;
+    /* right: 20px; */
+    width: 50px;
+    height: 150px;
+    transform-origin: top center;
+    /* transform: rotate(45deg); */
+}
+
+.winning-result {
+    display: block;
+    background-color: transparent;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+    padding: 25px 30px 10px;
+    line-height: 1;
+    font-size: 8em;
+    position: absolute;
+    z-index: 9;
+    transform: scale(1) skew(-5deg, -5deg);
+    transition: all 0.2s ease-in-out;
+}
+.winning-result.hidden {
+    transform: scale(0);
+    transition: all 0.2s ease-in-out;
+}
+.winning-result p {
+    transform: skew(5deg, 5deg);
 }
 
 .info-panel {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     width: 100%;
     color: #000;
+}
+
+.no-transition {
+    transition: none 0s linear;
 }

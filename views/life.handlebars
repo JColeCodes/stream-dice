@@ -1,9 +1,20 @@
 <main class="life">
     
     <div class="item">
-        <div class="spin">Spin wheel goes here</div>
+        <div class="spin" data-type="numbers">
+            <img src="/assets/images/LIFE/spinner/spinner-base.svg" alt="Spinner base" class="spinner" />
+            <img src="/assets/images/LIFE/spinner/spinner-numbers.svg" alt="Number Spinner with numbers 1-10" class="spinner numbers" />
+            <img src="/assets/images/LIFE/spinner/spinner-arrow.svg" alt="Arrow that points to which item has been spun" class="arrow" />
+            <div class="winning-result hidden" id="spin-result">
+                <p></p>
+            </div>
+        </div>
         {{#if loggedIn}}
             <button id="spin-wheel">Spin the wheel!</button>
+            <button id="toggle-wheel">Toggle Risk Wheel</button>
+            <div class="other-btns">
+                <button id="spin-result-reset">Close Spin Result</button>
+            </div>
         {{/if}}
     </div>
 
@@ -44,7 +55,7 @@
                 <button id="pick-house">House</button>
                 <button id="pick-action">Action</button>
                 <div class="other-btns">
-                    <button id="card-reset" class="hidden">Reset Cards</button>
+                    <button id="card-reset">Reset Cards</button>
                 </div>
             </div>
             {{!-- <button id="pick-card" class="hidden">Pick a Card!</button> --}}
