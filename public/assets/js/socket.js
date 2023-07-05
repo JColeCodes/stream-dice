@@ -10,9 +10,9 @@ function diceRoll(times, dice) {
     for (let i = 0; i < times; i++) {
         setTimeout(function() {
             if (i === times - 1) {
-                diceImg.innerHTML = `<img src="/assets/images/dice-${dice}.png" alt="Dice ${dice}" />`;
+                diceImg.innerHTML = `<img src="/assets/images/Candyland/dice-${dice}.png" alt="Dice ${dice}" />`;
             } else {
-                diceImg.innerHTML = `<img src="/assets/images/dice-${randomize(1, 7)}.png" alt="Rolling..." />`;
+                diceImg.innerHTML = `<img src="/assets/images/Candyland/dice-${randomize(1, 7)}.png" alt="Rolling..." />`;
             }
         }, 150 * i);
     }
@@ -20,7 +20,7 @@ function diceRoll(times, dice) {
 
 function displayCard(card) {
     const cardImg = document.querySelector('.card-img');
-    cardImg.innerHTML = `<img src="/assets/images/${cards[card].image}.png"
+    cardImg.innerHTML = `<img src="/assets/images/Candyland/${cards[card].image}.png"
         alt="${cards[card].title}" />
         <p>${cards[card].title}</p>`;
 }
