@@ -6,18 +6,27 @@
 }
 
 body {
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 main.life {
     font-family: 'Akshar', sans-serif;
     font-weight: 500;
     user-select: none;
-    /* gap: 150px; */
+    gap: 150px;
+    padding: 50px;
+}
+
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
 }
 
 button {
-    margin-top: 10px;
+    margin: 10px 2px 0;
     opacity: 1;
     z-index: 100;
     position: relative;
@@ -56,11 +65,16 @@ button#pick-career, button#pick-house, button#pick-action {
     text-shadow: 1px 1px 0 rgba(0,0,0,.4);
 }
 
-button#card-reset, button#spin-result-reset {
+.other-btns button {
     padding: 10px;
     font-size: .8em;
-    background-color: var(--family);
-    color: #fff;
+    background-color: var(--family)!important;
+    color: #fff!important;
+}
+
+button.disabled {
+    opacity: .8;
+    filter: grayscale(1);
 }
 
 .card-stack {
@@ -68,6 +82,7 @@ button#card-reset, button#spin-result-reset {
     width: var(--width);
     height: calc(var(--width) + 100px);
     margin-bottom: 40px;
+    margin-left: 6px;
 }
 
 .card {
@@ -159,10 +174,8 @@ button#card-reset, button#spin-result-reset {
 } */
 
 .spin {
-    /* background-color: #fff; */
     width: 500px;
     height: 500px;
-    /* border-radius: 50%; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -173,23 +186,41 @@ button#card-reset, button#spin-result-reset {
     position: absolute;
     width: 500px;
     height: 500px;
-    transition: all 5s cubic-bezier(.18,.05,.17,1);
+    transition: transform 5s cubic-bezier(.18,.05,.17,1);
 }
+
+.spinner.fate.show {
+    animation: fateShow 800ms ease-in-out 1 both;
+}
+.spinner.fate.hidden {
+    pointer-events: none;
+    animation: fateHide 800ms ease-in-out 1 both;
+}
+@keyframes fateShow {
+    0% { scale: 0; }
+    80% { scale: 1.2; }
+    100% { scale: 1; }
+}
+@keyframes fateHide {
+    0% { scale: 1; }
+    20% { scale: 1.2; }
+    100% { scale: 0; }
+}
+
 .spin .arrow {
     position: absolute;
     top: -50px;
-    /* right: 20px; */
     width: 50px;
     height: 150px;
     transform-origin: top center;
-    /* transform: rotate(45deg); */
+    z-index: 5;
 }
 
 .winning-result {
     display: block;
     background-color: transparent;
     color: #fff;
-    text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+    text-shadow: 2px 2px 4px rgba(0,0,0,.3);
     padding: 25px 30px 10px;
     line-height: 1;
     font-size: 8em;
@@ -214,4 +245,12 @@ button#card-reset, button#spin-result-reset {
 
 .no-transition {
     transition: none 0s linear;
+}
+.initial {
+    opacity: 0;
+    pointer-events: none;
+    transition: none 0s linear;
+}
+.disabled {
+    pointer-events: none;
 }

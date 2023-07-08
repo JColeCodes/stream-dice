@@ -3,7 +3,12 @@
     <div class="item">
         <div class="spin" data-type="numbers">
             <img src="/assets/images/LIFE/spinner/spinner-base.svg" alt="Spinner base" class="spinner" />
+            
             <img src="/assets/images/LIFE/spinner/spinner-numbers.svg" alt="Number Spinner with numbers 1-10" class="spinner numbers" />
+            <img src="/assets/images/LIFE/spinner/spinner-fate.svg" alt="Fate Spinner with taxes, 100k, action, new career, house, baby" class="spinner fate hidden initial" />
+
+            <img src="/assets/images/LIFE/spinner/spinner-center.svg" alt="Center of spinner that has alternating red and black" class="spinner" />
+
             <img src="/assets/images/LIFE/spinner/spinner-arrow.svg" alt="Arrow that points to which item has been spun" class="arrow" />
             <div class="winning-result hidden" id="spin-result">
                 <p></p>
@@ -11,8 +16,8 @@
         </div>
         {{#if loggedIn}}
             <button id="spin-wheel">Spin the wheel!</button>
-            <button id="toggle-wheel">Toggle Risk Wheel</button>
             <div class="other-btns">
+                <button id="toggle-wheel">Fate Wheel</button>
                 <button id="spin-result-reset">Close Spin Result</button>
             </div>
         {{/if}}

@@ -4,12 +4,19 @@ function randomize(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-function displayCard(card, card_type, side) {
-    const cardImg = document.querySelector(side).querySelector('.card-img');
+function displayCard(card, card_type, side, other_card) {
+    const cardImg = document.querySelector(`.${side}`).querySelector('.card-img');
+    let tempCards;
     if (card_type === 'career') {
-        cardImg.innerHTML = `<img src="assets/images/LIFE/${card_type}/${careerCards[card].image}.png"
-            alt="${careerCards[card].title}" />
-            <p>${careerCards[card].title}</p>`;
+        tempCards = [...careerCards];
+        tempCards.slice(other_card, 1);
+        cardImg.innerHTML = `<img src="assets/images/LIFE/${card_type}/${side === 'left' ? careerCards[card].image : tempCards[card].image}.png"
+            alt="${side === 'left' ? careerCards[card].title : tempCards[card].title}" />
+            <p>${side === 'left' ? careerCards[card].title : tempCards[card].title}</p>`;
+
+        console.log(side === 'left' ? careerCards[card] : tempCards[card]);
+        console.log(side === 'left' ? card : card);
+
     } else if (card_type === 'house') {
         cardImg.innerHTML = 'This is a HOUSE card!!!! ';
     } else if (card_type === 'action') {
@@ -51,30 +58,38 @@ const actionCards = [
     { title: '', image: '', type: '', reward: '' },
 ];
 
+// SPINNER RESULTS
+const numberResults = [
+    { num: 10, color: '00dae0' },
+    { num: 9, color: '00aeff' },
+    { num: 8, color: '4a54ff' },
+    { num: 7, color: '8b53ff' },
+    { num: 6, color: 'ce20ff' },
+    { num: 5, color: 'ff00ff' },
+    { num: 4, color: 'ff0000' },
+    { num: 3, color: 'ff9d00' },
+    { num: 2, color: 'ffe700' },
+    { num: 1, color: 'fefc00' },
+];
+const fateResults = [
+    { title: 'Career', color: '1491d2', min: 0, max: 1 },
+    { title: 'House', color: 'f87d2b', min: 1, max: 2 },
+    { title: 'Family', color: 'dc2977', min: 2, max: 3 },
+    { title: 'Taxes', color: 'e00006', min: 3, max: 6 },
+    { title: '100K', color: '9465eb', min: 6, max: 8 },
+    { title: 'Action', color: 'f7c837', min: 8, max: 10 }
+];
+
+function removeInit() {
+    document.querySelectorAll('.initial').forEach(init => {
+        setTimeout(() => {
+            init.classList.remove('initial');
+        }, 1100);
+    });
+}
+removeInit();
+
 if (document.querySelector('#pick-card-type')) {
-    // document.querySelector('#pick-card-type').addEventListener('change', event => {
-    //     if (event.target.value === 'select-type') {
-    //         document.querySelector('#pick-card').classList.add('hidden');
-    //     } else {
-    //         document.querySelector('#pick-card').classList.remove('hidden');
-    //     }
-
-    //     socket.emit('life', {
-    //         current: 'card-type',
-    //         value: event.target.value
-    //     });
-    // });
-
-    // document.querySelector('#pick-card').addEventListener('click', (event) => {
-    //     event.preventDefault();
-        
-    //     // Emit the following information
-    //     socket.emit('life', {
-    //         current: 'card-face',
-    //         card: randomize(0, 6)
-    //     });
-    // });
-
     document.querySelector('#spin-wheel').addEventListener('click', e=> {
         e.preventDefault();
 
@@ -85,7 +100,27 @@ if (document.querySelector('#pick-card-type')) {
             spin: randomSpin
         });
 
-    })
+    });
+
+    document.querySelector('#toggle-wheel').addEventListener('click', e=> {
+        e.preventDefault();
+
+        const typeID = document.querySelector('.spin').dataset.type;
+
+        socket.emit('life', {
+            current: 'spinner-toggle',
+            type: typeID
+        });
+
+    });
+
+    document.querySelector('#spin-result-reset').addEventListener('click', e=> {
+        e.preventDefault();
+        socket.emit('life', {
+            current: 'spinner-result-reset'
+        });
+
+    });
     
     document.querySelectorAll('.card-face-options button').forEach(button => {
         button.addEventListener('click', e => {
@@ -112,10 +147,7 @@ if (document.querySelector('#pick-card-type')) {
         if (cardStack.querySelector('.left').classList.contains('flip')) {
             if (typeID === 'career') {
                 cardInfoA = randomize(0, 19);
-                cardInfoB = randomize(0, 19);
-                // while (cardInfoA === cardInfoB) {
-                //     cardInfoB = randomize(0, 19);
-                // }
+                cardInfoB = randomize(0, 18);
             }
             else if (typeID === 'house') {
                 cardInfoA = randomize(0, 1);
@@ -140,10 +172,15 @@ if (document.querySelector('#pick-card-type')) {
 socket.on('life', (data) => {
     if (data.current === 'spinner-spin') {
         const baseSpin = data.spin%360;
+        const spinner = document.querySelector('.spin');
         const resultEl = document.querySelector('#spin-result');
+        const toggleBtn = document.querySelector('#toggle-wheel');
 
         if (!resultEl.classList.contains('hidden')) {
             resultEl.classList.add('hidden');
+        }
+        if (toggleBtn) {
+            toggleBtn.classList.add('disabled');
         }
 
         const spinners = document.querySelectorAll('.spinner');
@@ -159,51 +196,76 @@ socket.on('life', (data) => {
             }, 5500);
         });
 
-        if (document.querySelector('.spin').dataset.type === 'numbers'){
+        if (spinner.dataset.type === 'numbers') {
             let number = 0;
             setTimeout(() => {
-                if (baseSpin >= 0 && baseSpin < 36) {
-                    number = 10;
-                    resultEl.style.backgroundColor = '#00dae0';
-                } else if (baseSpin >= 36 && baseSpin < 72) {
-                    number = 9;
-                    resultEl.style.backgroundColor = '#00aeff';
-                } else if (baseSpin >= 72 && baseSpin < 108) {
-                    number = 8;
-                    resultEl.style.backgroundColor = '#4a54ff';
-                } else if (baseSpin >= 108 && baseSpin < 144) {
-                    number = 7;
-                    resultEl.style.backgroundColor = '#8b53ff';
-                } else if (baseSpin >= 144 && baseSpin < 180) {
-                    number = 6;
-                    resultEl.style.backgroundColor = '#ce20ff';
-                } else if (baseSpin >= 180 && baseSpin < 216) {
-                    number = 5;
-                    resultEl.style.backgroundColor = '#ff00ff';
-                } else if (baseSpin >= 216 && baseSpin < 252) {
-                    number = 4;
-                    resultEl.style.backgroundColor = '#ff0000';
-                } else if (baseSpin >= 252 && baseSpin < 288) {
-                    number = 3;
-                    resultEl.style.backgroundColor = '#ff9d00';
-                } else if (baseSpin >= 288 && baseSpin < 324) {
-                    number = 2;
-                    resultEl.style.backgroundColor = '#ffe700';
-                } else if (baseSpin >= 324 && baseSpin < 360) {
-                    number = 1;
-                    resultEl.style.backgroundColor = '#fefc00';
-                }
+                numberResults.forEach((num, i) => {
+                    if (baseSpin >= (i * 36) && baseSpin < ((i + 1) * 36)) {
+                        number = num.num;
+                        resultEl.style.backgroundColor = `#${num.color}`;
+                        resultEl.style.fontSize = '8em';
+                    };
+                });
 
                 resultEl.querySelector('p').textContent = number;
+            }, 5000);
+        } else if (spinner.dataset.type === 'fate') {
+            let title = '';
+            setTimeout(() => {
+                fateResults.forEach(fate => {
+                    if (baseSpin >= (fate.min * 36) && baseSpin < (fate.max * 36)) {
+                        title = fate.title;
+                        resultEl.style.backgroundColor = `#${fate.color}`;
+                        resultEl.style.fontSize = '6em';
+                    };
+                });
+
+                resultEl.querySelector('p').textContent = title;
             }, 5000);
         }
 
         setTimeout(() => {
             resultEl.classList.remove('hidden');
+            if (toggleBtn) {
+                toggleBtn.classList.remove('disabled');
+            }
         }, 5500);
         setTimeout(() => {
             resultEl.classList.add('hidden');
         }, 120000);
+
+    } else if (data.current === 'spinner-toggle') {
+        const spinner = document.querySelector('.spin');
+        const fate = spinner.querySelector('.fate');
+        const toggleBtn = document.querySelector('#toggle-wheel');
+        const resultEl = document.querySelector('#spin-result');
+
+        if (!resultEl.classList.contains('hidden')) {
+            resultEl.classList.add('hidden');
+        }
+
+        if (data.type === 'numbers') {
+            spinner.dataset.type = 'fate';
+            fate.classList.add('show');
+            fate.classList.remove('hidden');
+            if (toggleBtn) {
+                toggleBtn.textContent = 'Numbers Wheel';
+            }
+        } else if (data.type === 'fate') {
+            spinner.dataset.type = 'numbers';
+            fate.classList.add('hidden');
+            fate.classList.remove('show');
+            if (toggleBtn) {
+                toggleBtn.textContent = 'Fate Wheel';
+            }
+        }
+        
+    } else if (data.current === 'spinner-result-reset') {
+        const resultEl = document.querySelector('#spin-result');
+
+        if (!resultEl.classList.contains('hidden')) {
+            resultEl.classList.add('hidden');
+        }
 
     } else if (data.current === 'card-type') {
         const cardStack = document.querySelector('.card-stack');
@@ -268,7 +330,7 @@ socket.on('life', (data) => {
         if (leftCard.classList.contains('flip')) {
             leftCard.classList.remove('flip');
             leftCard.classList.add('move-left');
-            displayCard(data.cardA, data.type, '.left');
+            displayCard(data.cardA, data.type, 'left', data.cardB);
         } else {
             leftCard.classList.add('flip');
             leftCard.classList.remove('move-left');
@@ -277,7 +339,7 @@ socket.on('life', (data) => {
         if (rightCard.classList.contains('flip')) {
             rightCard.classList.remove('flip');
             rightCard.classList.add('move-right');
-            displayCard(data.cardB, data.type, '.right');
+            displayCard(data.cardB, data.type, 'right', data.cardA);
         } else {
             rightCard.classList.add('flip');
             rightCard.classList.remove('move-right');

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: red;
+      }
+
+      .cls-2 {
+        stroke: #f2f2f2;
+        stroke-miterlimit: 10;
+        stroke-width: 10px;
+      }
+
+      .cls-4 {
+        fill: none;
+        filter: url(#drop-shadow-1);
+      }
+    </style>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#000" flood-opacity=".3"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="red-black">
+    <path class="cls-3" d="m661.65,277.51l-161.65,222.49V225c60.41,0,116.28,19.48,161.65,52.51Z"/>
+    <path d="m761.61,415l-261.61,85,161.65-222.49c46.42,33.77,81.86,81.73,99.96,137.49Z"/>
+    <path class="cls-3" d="m775,500c0,29.66-4.7,58.23-13.39,85l-261.61-85,261.61-85c8.69,26.77,13.39,55.34,13.39,85Z"/>
+    <path d="m761.61,585c-18.1,55.76-53.54,103.72-99.96,137.49l-161.65-222.49,261.61,85Z"/>
+    <path class="cls-3" d="m661.65,722.49c-45.37,33.03-101.24,52.51-161.65,52.51v-275l161.65,222.49Z"/>
+    <path d="m500,500v275c-60.41,0-116.28-19.48-161.65-52.51l161.65-222.49Z"/>
+    <path class="cls-3" d="m500,500l-161.65,222.49c-46.42-33.77-81.86-81.73-99.96-137.49l261.61-85Z"/>
+    <path d="m500,500l-261.61,85c-8.69-26.77-13.39-55.34-13.39-85s4.7-58.23,13.39-85l261.61,85Z"/>
+    <path class="cls-3" d="m500,500l-261.61-85c18.1-55.76,53.54-103.72,99.96-137.49l161.65,222.49Z"/>
+    <path d="m500,225v275l-161.65-222.49c45.37-33.03,101.24-52.51,161.65-52.51Z"/>
+  </g>
+  <g id="spinner-center">
+    <circle class="cls-1" cx="500" cy="500" r="110"/>
+    <circle class="cls-2" cx="500" cy="500" r="60"/>
+    <g class="cls-4">
+      <path class="cls-1" d="m500,790c-77.46,0-150.29-30.17-205.06-84.94-54.77-54.77-84.94-127.6-84.94-205.06s30.17-150.29,84.94-205.06c54.77-54.77,127.6-84.94,205.06-84.94s150.29,30.17,205.06,84.94c54.77,54.77,84.94,127.6,84.94,205.06s-30.17,150.29-84.94,205.06c-54.77,54.77-127.6,84.94-205.06,84.94Zm0-520c-61.44,0-119.19,23.92-162.63,67.37-43.44,43.44-67.37,101.2-67.37,162.63s23.92,119.19,67.37,162.63c43.44,43.44,101.2,67.37,162.63,67.37s119.19-23.92,162.63-67.37,67.37-101.2,67.37-162.63-23.92-119.19-67.37-162.63c-43.44-43.44-101.2-67.37-162.63-67.37Z"/>
+    </g>
+    <rect class="cls-1" x="485" y="225" width="30" height="200"/>
+    <rect class="cls-1" x="382.14" y="258.42" width="30" height="200" transform="translate(-134.83 301.88) rotate(-36)"/>
+    <rect class="cls-1" x="318.57" y="345.92" width="30" height="200" transform="translate(-193.61 625.36) rotate(-72)"/>
+    <rect class="cls-1" x="318.57" y="454.08" width="30" height="200" transform="translate(-90.32 1042.54) rotate(-108)"/>
+    <rect class="cls-1" x="382.14" y="541.58" width="30" height="200" transform="translate(341.32 1394.06) rotate(-144)"/>
+    <rect class="cls-1" x="485" y="575" width="30" height="200" transform="translate(1000 1350) rotate(-180)"/>
+    <rect class="cls-1" x="587.86" y="541.58" width="30" height="200" transform="translate(1467.7 806.27) rotate(144)"/>
+    <rect class="cls-1" x="651.43" y="454.08" width="30" height="200" transform="translate(1399.33 91.48) rotate(108)"/>
+    <rect class="cls-1" x="651.43" y="345.92" width="30" height="200" transform="translate(884.59 -325.69) rotate(72)"/>
+    <rect class="cls-1" x="587.86" y="258.42" width="30" height="200" transform="translate(325.81 -285.9) rotate(36)"/>
+  </g>
+</svg>
