@@ -22,7 +22,6 @@ img {
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
-    user-drag: none;
 }
 
 button {
@@ -70,6 +69,9 @@ button#pick-career, button#pick-house, button#pick-action {
     font-size: .8em;
     background-color: var(--family)!important;
     color: #fff!important;
+}
+.other-btns button#toggle-wheel {
+    background-color: #9465eb!important;
 }
 
 button.disabled {
@@ -224,17 +226,33 @@ button.disabled {
     padding: 25px 30px 10px;
     line-height: 1;
     font-size: 8em;
+    text-transform: uppercase;
     position: absolute;
     z-index: 9;
-    transform: scale(1) skew(-5deg, -5deg);
+    transform: scale(1) skew(-4deg, -4deg);
     transition: all 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 .winning-result.hidden {
     transform: scale(0);
     transition: all 0.2s ease-in-out;
 }
 .winning-result p {
-    transform: skew(5deg, 5deg);
+    transform: skew(4deg, 4deg);
+}
+.rb-circle {
+    transform: skew(4deg, 4deg) rotate(45deg);
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin-top: -18px;
+    border: 8px solid #fff;
+}
+.rb-circle.hidden {
+    display: none;
 }
 
 .info-panel {

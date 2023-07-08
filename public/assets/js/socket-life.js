@@ -4,19 +4,12 @@ function randomize(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-function displayCard(card, card_type, side, other_card) {
-    const cardImg = document.querySelector(`.${side}`).querySelector('.card-img');
-    let tempCards;
+function displayCard(card, card_type, side) {
+    const cardImg = document.querySelector(side).querySelector('.card-img');
     if (card_type === 'career') {
-        tempCards = [...careerCards];
-        tempCards.slice(other_card, 1);
-        cardImg.innerHTML = `<img src="assets/images/LIFE/${card_type}/${side === 'left' ? careerCards[card].image : tempCards[card].image}.png"
-            alt="${side === 'left' ? careerCards[card].title : tempCards[card].title}" />
-            <p>${side === 'left' ? careerCards[card].title : tempCards[card].title}</p>`;
-
-        console.log(side === 'left' ? careerCards[card] : tempCards[card]);
-        console.log(side === 'left' ? card : card);
-
+        cardImg.innerHTML = `<img src="assets/images/LIFE/${card_type}/${careerCards[card].image}.png"
+            alt="${careerCards[card].title}" />
+            <p>${careerCards[card].title}</p>`;
     } else if (card_type === 'house') {
         cardImg.innerHTML = 'This is a HOUSE card!!!! ';
     } else if (card_type === 'action') {
@@ -147,7 +140,11 @@ if (document.querySelector('#pick-card-type')) {
         if (cardStack.querySelector('.left').classList.contains('flip')) {
             if (typeID === 'career') {
                 cardInfoA = randomize(0, 19);
-                cardInfoB = randomize(0, 18);
+                cardInfoB = randomize(0, 19);
+
+                while (cardInfoA === cardInfoB) {
+                    cardInfoB = randomize(0, 19);
+                }
             }
             else if (typeID === 'house') {
                 cardInfoA = randomize(0, 1);
@@ -174,10 +171,14 @@ socket.on('life', (data) => {
         const baseSpin = data.spin%360;
         const spinner = document.querySelector('.spin');
         const resultEl = document.querySelector('#spin-result');
+        const redBlack = resultEl.querySelector('.rb-circle');
         const toggleBtn = document.querySelector('#toggle-wheel');
 
         if (!resultEl.classList.contains('hidden')) {
             resultEl.classList.add('hidden');
+        }
+        if (!redBlack.classList.contains('hidden')) {
+            redBlack.classList.add('hidden');
         }
         if (toggleBtn) {
             toggleBtn.classList.add('disabled');
@@ -199,11 +200,18 @@ socket.on('life', (data) => {
         if (spinner.dataset.type === 'numbers') {
             let number = 0;
             setTimeout(() => {
+                redBlack.classList.remove('hidden');
                 numberResults.forEach((num, i) => {
                     if (baseSpin >= (i * 36) && baseSpin < ((i + 1) * 36)) {
                         number = num.num;
                         resultEl.style.backgroundColor = `#${num.color}`;
                         resultEl.style.fontSize = '8em';
+
+                        if (i%2 === 0) {
+                            redBlack.style.backgroundColor = '#000000';
+                        } else {
+                            redBlack.style.backgroundColor = '#ff0000';
+                        }
                     };
                 });
 
@@ -216,7 +224,7 @@ socket.on('life', (data) => {
                     if (baseSpin >= (fate.min * 36) && baseSpin < (fate.max * 36)) {
                         title = fate.title;
                         resultEl.style.backgroundColor = `#${fate.color}`;
-                        resultEl.style.fontSize = '6em';
+                        resultEl.style.fontSize = '5em';
                     };
                 });
 
@@ -330,7 +338,7 @@ socket.on('life', (data) => {
         if (leftCard.classList.contains('flip')) {
             leftCard.classList.remove('flip');
             leftCard.classList.add('move-left');
-            displayCard(data.cardA, data.type, 'left', data.cardB);
+            displayCard(data.cardA, data.type, '.left');
         } else {
             leftCard.classList.add('flip');
             leftCard.classList.remove('move-left');
@@ -339,7 +347,7 @@ socket.on('life', (data) => {
         if (rightCard.classList.contains('flip')) {
             rightCard.classList.remove('flip');
             rightCard.classList.add('move-right');
-            displayCard(data.cardB, data.type, 'right', data.cardA);
+            displayCard(data.cardB, data.type, '.right');
         } else {
             rightCard.classList.add('flip');
             rightCard.classList.remove('move-right');
