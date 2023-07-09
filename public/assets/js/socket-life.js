@@ -7,9 +7,27 @@ function randomize(min, max) {
 function displayCard(card, card_type, side) {
     const cardImg = document.querySelector(side).querySelector('.card-img');
     if (card_type === 'career') {
-        cardImg.innerHTML = `<img src="assets/images/LIFE/${card_type}/${careerCards[card].image}.png"
-            alt="${careerCards[card].title}" />
-            <p>${careerCards[card].title}</p>`;
+        cardImg.innerHTML = `<h1>${careerCards[card].title}</h1>
+        <img src="assets/images/LIFE/${card_type}/${careerCards[card].image}.png"
+            alt="${careerCards[card].title}" class="career-img" />
+        <div class="salary-table">
+            <div class="salary">
+                <h2>Salary</h2>
+                <ul>
+                    <li><img src="assets/images/LIFE/icons/money.svg" alt="Base Salary" /> ${careerCards[card].nocollege.salary}k</li>
+                    <li><img src="assets/images/LIFE/icons/college.svg" alt="College Salary" /> ${careerCards[card].college.salary}k</li>
+                    <li><img src="assets/images/LIFE/icons/collegex2.svg" alt="Extended College Salary" /> ${careerCards[card].university.salary}k</li>
+                </ul>
+            </div>
+            <div class="taxes">
+                <h2><img src="assets/images/LIFE/icons/taxes.svg" alt="Taxes" /> Taxes</h2>
+                <ul>
+                    <li><img src="assets/images/LIFE/icons/money.svg" alt="Base Tax" /> ${careerCards[card].nocollege.taxes}k</li>
+                    <li><img src="assets/images/LIFE/icons/college.svg" alt="College Tax" /> ${careerCards[card].college.taxes}k</li>
+                    <li><img src="assets/images/LIFE/icons/collegex2.svg" alt="Extended College Tax" /> ${careerCards[card].university.taxes}k</li>
+                </ul>
+            </div>
+        </div>`;
     } else if (card_type === 'house') {
         cardImg.innerHTML = 'This is a HOUSE card!!!! ';
     } else if (card_type === 'action') {
@@ -19,26 +37,106 @@ function displayCard(card, card_type, side) {
 
 // CAREER CARDS
 const careerCards = [
-    { title: 'Actor', image: 'actor', salary: '', taxes: '' },
-    { title: 'Artist', image: 'artist', salary: '', taxes: '' },
-    { title: 'Astronaut', image: 'astronaut', salary: '', taxes: '' },
-    { title: 'Athlete', image: 'athlete', salary: '', taxes: '' },
-    { title: 'Babysitter', image: 'babysitter', salary: '', taxes: '' },
-    { title: 'Chef', image: 'chef', salary: '', taxes: '' },
-    { title: 'Civil Designer', image: 'civildesigner', salary: '', taxes: '' },
-    { title: 'Criminal', image: 'criminal', salary: '', taxes: '' },
-    { title: 'Critic', image: 'critic', salary: '', taxes: '' },
-    { title: 'Detective', image: 'detective', salary: '', taxes: '' },
-    { title: 'Doctor', image: 'doctor', salary: '', taxes: '' },
-    { title: 'Lawyer', image: 'lawyer', salary: '', taxes: '' },
-    { title: 'Lifeguard', image: 'lifeguard', salary: '', taxes: '' },
-    { title: 'Politician', image: 'politician', salary: '', taxes: '' },
-    { title: 'Scientist', image: 'scientist', salary: '', taxes: '' },
-    { title: 'Secret Agent', image: 'secretagent', salary: '', taxes: '' },
-    { title: 'Simfluencer', image: 'simfluencer', salary: '', taxes: '' },
-    { title: 'Streamer', image: 'streamer', salary: '', taxes: '' },
-    { title: 'Teacher', image: 'teacher', salary: '', taxes: '' },
-    { title: 'Tech Guru', image: 'techguru', salary: '', taxes: '' },
+    { title: 'Actor', image: 'actor',
+        nocollege: { salary: '80', taxes: '40' },
+        college: { salary: '100', taxes: '60' },
+        university: { salary: '110', taxes: '70' }
+    },
+    { title: 'Artist', image: 'artist',
+        nocollege: { salary: '60', taxes: '30' },
+        college: { salary: '80', taxes: '50' },
+        university: { salary: '90', taxes: '60' }
+    },
+    { title: 'Astronaut', image: 'astronaut',
+        nocollege: { salary: '90', taxes: '70' },
+        college: { salary: '110', taxes: '90' },
+        university: { salary: '140', taxes: '110' }
+    },
+    { title: 'Athlete', image: 'athlete',
+        nocollege: { salary: '60', taxes: '40' },
+        college: { salary: '80', taxes: '60' },
+        university: { salary: '110', taxes: '70' }
+    },
+    { title: 'Babysitter', image: 'babysitter',
+        nocollege: { salary: '30', taxes: '10' },
+        college: { salary: '50', taxes: '30' },
+        university: { salary: '80', taxes: '50' }
+    },
+    { title: 'Chef', image: 'chef',
+        nocollege: { salary: '70', taxes: '60' },
+        college: { salary: '90', taxes: '80' },
+        university: { salary: '100', taxes: '90' }
+    },
+    { title: 'Civil Designer', image: 'civildesigner',
+        nocollege: { salary: '50', taxes: '30' },
+        college: { salary: '70', taxes: '40' },
+        university: { salary: '80', taxes: '50' }
+    },
+    { title: 'Criminal', image: 'criminal',
+        nocollege: { salary: '70', taxes: '30' },
+        college: { salary: '80', taxes: '40' },
+        university: { salary: '90', taxes: '50' }
+    },
+    { title: 'Critic', image: 'critic',
+        nocollege: { salary: '50', taxes: '30' },
+        college: { salary: '60', taxes: '40' },
+        university: { salary: '70', taxes: '50' }
+    },
+    { title: 'Detective', image: 'detective',
+        nocollege: { salary: '60', taxes: '40' },
+        college: { salary: '70', taxes: '50' },
+        university: { salary: '90', taxes: '70' }
+    },
+    { title: 'Doctor', image: 'doctor',
+        nocollege: { salary: '20', taxes: '10' }, // If you're a doctor who didn't go to school, you're doing it underground and illegally
+        college: { salary: '100', taxes: '80' },
+        university: { salary: '130', taxes: '100' }
+    },
+    { title: 'Lawyer', image: 'lawyer',
+        nocollege: { salary: '80', taxes: '60' },
+        college: { salary: '100', taxes: '70' },
+        university: { salary: '120', taxes: '90' }
+    },
+    { title: 'Lifeguard', image: 'lifeguard',
+        nocollege: { salary: '40', taxes: '20' },
+        college: { salary: '60', taxes: '30' },
+        university: { salary: '70', taxes: '40' }
+    },
+    { title: 'Politician', image: 'politician',
+        nocollege: { salary: '70', taxes: '20' },
+        college: { salary: '80', taxes: '30' },
+        university: { salary: '90', taxes: '40' }
+    },
+    { title: 'Scientist', image: 'scientist',
+        nocollege: { salary: '90', taxes: '70' },
+        college: { salary: '100', taxes: '80' },
+        university: { salary: '110', taxes: '90' }
+    },
+    { title: 'Secret Agent', image: 'secretagent',
+        nocollege: { salary: '80', taxes: '60' },
+        college: { salary: '90', taxes: '70' },
+        university: { salary: '110', taxes: '90' }
+    },
+    { title: 'Simfluencer', image: 'simfluencer',
+        nocollege: { salary: '80', taxes: '60' },
+        college: { salary: '90', taxes: '70' },
+        university: { salary: '100', taxes: '80' }
+    },
+    { title: 'Streamer', image: 'streamer',
+        nocollege: { salary: '70', taxes: '50' },
+        college: { salary: '80', taxes: '60' },
+        university: { salary: '100', taxes: '80' }
+    },
+    { title: 'Teacher', image: 'teacher',
+        nocollege: { salary: '40', taxes: '20' },
+        college: { salary: '60', taxes: '40' },
+        university: { salary: '80', taxes: '50' }
+    },
+    { title: 'Tech Guru', image: 'techguru',
+        nocollege: { salary: '50', taxes: '30' },
+        college: { salary: '80', taxes: '60' },
+        university: { salary: '110', taxes: '80' }
+    },
 ];
 
 // HOUSE CARDS

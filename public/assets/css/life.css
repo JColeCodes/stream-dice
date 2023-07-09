@@ -3,6 +3,7 @@
     --house: #f97d2b;
     --action: #f8c837;
     --family: #dd2877;
+    --dark: #1d2328;
 }
 
 body {
@@ -161,11 +162,50 @@ button.disabled {
 
 .card-img {
     transform: scaleX(-1);
-    color: #1d2328;
+    color: var(--dark);
 }
-.card-img p {
+.card-img h1 {
     font-family: 'Akshar', sans-serif;
-    color: var(--family);
+    color: var(--dark);
+    font-size: 2.1em;
+    margin-bottom: 10px;
+}
+.card-img .career-img {
+    border-radius: 20px;
+}
+
+.salary-table {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+}
+.salary-table ul {
+    list-style-type: none;
+    margin: 0;
+}
+.salary-table li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    gap: 8px;
+}
+.salary-table img {
+    width: 40px; height: 40px;
+}
+.salary-table h2 img {
+    width: 15px; height: 15px;
+    display: inline-block;
+}
+.salary-table h2 {
+    font-size: 1.2em;
+}
+.salary-table .salary li {
+    color: #9465eb;
+}
+.salary-table .taxes li {
+    color: #e00006;
 }
 
 
