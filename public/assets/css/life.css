@@ -6,12 +6,22 @@
     --dark: #1d2328;
 }
 
+@font-face {
+    font-family: 'Dimbo';
+    src: url('fonts/DimboRegular.eot');
+    src: url('fonts/DimboRegular.eot') format('embedded-opentype'),
+         url('fonts/DimboRegular.woff2') format('woff2'),
+         url('fonts/DimboRegular.woff') format('woff'),
+         url('fonts/DimboRegular.ttf') format('truetype'),
+         url('fonts/DimboRegular.svg#DimboRegular') format('svg');
+}
+
 body {
     overflow-x: hidden;
 }
 
 main.life {
-    font-family: 'Akshar', sans-serif;
+    font-family: 'Dimbo', 'Akshar', sans-serif;
     font-weight: 500;
     user-select: none;
     gap: 150px;
@@ -123,7 +133,7 @@ button.disabled {
 .card-back .card-title {
     transform: scaleX(-1);
     text-shadow: 1px 1px 1px rgba(0,0,0,.3);
-    font-size: 2.5em;
+    font-size: 2.7em;
     margin: 20px 0;
     width: 100%;
 }
@@ -163,12 +173,23 @@ button.disabled {
 .card-img {
     transform: scaleX(-1);
     color: var(--dark);
+    font-family: 'Dimbo', 'Akshar', sans-serif;
+}
+.card-img hr {
+    height: 1px;
+    width: 100%;
+    border-top: 1px solid var(--house);
+    margin: 10px 0;
+    opacity: .4;
+}
+.card-img p {
+    font-family: 'Dimbo', 'Akshar', sans-serif;
 }
 .card-img h1 {
-    font-family: 'Akshar', sans-serif;
     color: var(--dark);
-    font-size: 2.1em;
+    font-size: 2.2em;
     margin-bottom: 10px;
+    font-weight: 500;
 }
 .card-img .career-img {
     border-radius: 20px;
@@ -188,24 +209,78 @@ button.disabled {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
+    font-size: 1.8em;
     gap: 8px;
 }
 .salary-table img {
-    width: 40px; height: 40px;
+    width: 38px; height: 38px;
 }
 .salary-table h2 img {
-    width: 15px; height: 15px;
+    width: 18px; height: 18px;
     display: inline-block;
 }
 .salary-table h2 {
-    font-size: 1.2em;
+    font-size: 1.4em;
+    font-weight: 500;
 }
 .salary-table .salary li {
     color: #9465eb;
 }
 .salary-table .taxes li {
     color: #e00006;
+}
+
+.card-img .house-description {
+    font-family: 'Lato', sans-serif;
+    font-size: .9em;
+    color: var(--dark);
+    margin-top: 5px;
+}
+.card-img .house-price {
+    background-color: var(--house);
+    color: #fff;
+    font-size: 1.8em;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.4);
+    padding: 8px 8px 6px 8px;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+.sell-house {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0 10px;
+}
+.sell-house span {
+    font-size: 2em;
+    transform: rotate(-10deg);
+    font-weight: 700;
+    color: var(--house);
+}
+.sell-house p {
+    font-size: 1.5em;
+    color: var(--dark);
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: start;
+    margin: 0;
+}
+.sell-house img {
+    width: 30px; height: 30px;
+    margin-bottom: 2px;
+}
+.sell-house .sell-prices {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: start;
+}
+.sell-house .sell-loss {
+    color: #e00006;
+}
+.sell-house .sell-gain {
+    color: var(--dark);
 }
 
 
