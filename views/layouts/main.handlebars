@@ -18,7 +18,7 @@
     {{/if}}
     <link rel='icon' href='/assets/images/fez.png' />
 </head>
-<body>
+<body {{#if life}}class="{{#if loggedIn}}dashboard{{else}}green-screen{{/if}}"{{/if}}>
     {{{body}}}
 </body>
 </html>

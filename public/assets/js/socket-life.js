@@ -33,7 +33,7 @@ function displayCard(card, card_type, side) {
         <img src="assets/images/LIFE/${card_type}/${houseCards[card].image}.png"
             alt="${houseCards[card].title}" class="house-img" />
         <p class='house-description'>${houseCards[card].description}</p>
-        <p class='house-price'>$${houseCards[card].price},000</p>\
+        <p class='house-price'>$${houseCards[card].price},000</p>
         <hr />
         <div class='sell-house'>
             <span>SELL!</span>
@@ -45,6 +45,20 @@ function displayCard(card, card_type, side) {
     } else if (card_type === 'action') {
         cardImg.innerHTML = 'And this one is for ACTION.';
     }
+}
+
+function selectCard(side) {
+    const cardStack = document.querySelector('.card-stack');
+    let other = '';
+    if (side === 'left') {
+        other = 'right';
+    } else if (side === 'right') {
+        other = 'left';
+    }
+    cardStack.querySelector(`.${side}`).classList.add('selected');
+    cardStack.querySelector(`.${side}`).classList.remove('unselected');
+    cardStack.querySelector(`.${other}`).classList.add('unselected');
+    cardStack.querySelector(`.${other}`).classList.remove('selected');
 }
 
 function removeInit() {
@@ -104,7 +118,8 @@ if (document.querySelector('#pick-card-type')) {
     });
 
     const cardStack = document.querySelector('.card-stack');
-    cardStack.addEventListener('click', e => {
+    const cardBottom = document.querySelector('.card.bottom');
+    cardBottom.addEventListener('click', e => {
         e.preventDefault();
 
         let cardInfoA = 0;
@@ -141,6 +156,23 @@ if (document.querySelector('#pick-card-type')) {
             cardB: cardInfoB,
         });
     });
+
+    const cardLeft = document.querySelector('.card.left');
+    cardLeft.addEventListener('click', e => {
+        e.preventDefault();
+        socket.emit('life', {
+            current: 'card-left-select'
+        });
+    });
+
+    const cardRight = document.querySelector('.card.right');
+    cardRight.addEventListener('click', e => {
+        e.preventDefault();
+        socket.emit('life', {
+            current: 'card-right-select'
+        });
+    });
+
 }
   
 // Socket on taking in the information from the emit
@@ -265,6 +297,12 @@ socket.on('life', (data) => {
             if (!card.classList.contains('flip')) {
                 card.classList.add('flip');
             }
+            if (card.classList.contains('selected')) {
+                card.classList.remove('selected');
+            }
+            if (card.classList.contains('unselected')) {
+                card.classList.remove('unselected');
+            }
             if (card.classList.contains('move-left') || card.classList.contains('move-right')) {
                 card.classList.remove('move-left');
                 card.classList.remove('move-right');
@@ -313,22 +351,47 @@ socket.on('life', (data) => {
         const leftCard = cardStack.querySelector('.left');
         const rightCard = cardStack.querySelector('.right');
 
-        if (leftCard.classList.contains('flip')) {
-            leftCard.classList.remove('flip');
-            leftCard.classList.add('move-left');
-            displayCard(data.cardA, data.type, '.left');
-        } else {
-            leftCard.classList.add('flip');
-            leftCard.classList.remove('move-left');
+        let flipTimeout = 0;
+        if (leftCard.classList.contains('selected') || leftCard.classList.contains('unselected') || rightCard.classList.contains('selected') || rightCard.classList.contains('unselected') ) {
+            flipTimeout = 700;
+
+            if (leftCard.classList.contains('selected')) {
+                leftCard.style.zIndex = 3;
+            } else if (rightCard.classList.contains('selected')) {
+                rightCard.style.zIndex = 3;
+            }
         }
 
-        if (rightCard.classList.contains('flip')) {
-            rightCard.classList.remove('flip');
-            rightCard.classList.add('move-right');
-            displayCard(data.cardB, data.type, '.right');
-        } else {
-            rightCard.classList.add('flip');
-            rightCard.classList.remove('move-right');
-        }
+        setTimeout(() => {
+            if (leftCard.classList.contains('flip')) {
+                leftCard.classList.remove('flip');
+                leftCard.classList.add('move-left');
+                displayCard(data.cardA, data.type, '.left');
+            } else {
+                leftCard.classList.add('flip');
+                leftCard.classList.remove('move-left');
+            }
+
+            if (rightCard.classList.contains('flip')) {
+                rightCard.classList.remove('flip');
+                rightCard.classList.add('move-right');
+                displayCard(data.cardB, data.type, '.right');
+            } else {
+                rightCard.classList.add('flip');
+                rightCard.classList.remove('move-right');
+            }
+            leftCard.style.zIndex = '';
+            rightCard.style.zIndex = '';
+        }, flipTimeout);
+
+        leftCard.classList.remove('selected');
+        leftCard.classList.remove('unselected');
+        rightCard.classList.remove('selected');
+        rightCard.classList.remove('unselected');
+
+    } else if (data.current === 'card-left-select') {
+        selectCard('left');
+    } else if (data.current === 'card-right-select') {
+        selectCard('right');
     }
 });

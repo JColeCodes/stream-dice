@@ -20,6 +20,10 @@ body {
     overflow-x: hidden;
 }
 
+.green-screen {
+    background-color: lime;
+}
+
 main.life {
     font-family: 'Dimbo', 'Akshar', sans-serif;
     font-weight: 500;
@@ -168,6 +172,32 @@ button.disabled {
     position: absolute;
     left: 160px;
 }
+.left.flip, .right.flip {
+    pointer-events: none;
+}
+.card.left:hover, .card.right:hover {
+    scale: 1.05;
+}
+.card.selected {
+    left: 0;
+    scale: 1.05;
+    z-index: 3;
+    pointer-events: none;
+}
+.card.unselected {
+    left: 0;
+    pointer-events: none;
+}
+.card.left.selected, .card.left.unselected {
+    transform: rotate(-6deg) scaleX(-1)!important;
+}
+.card.right.selected, .card.right.unselected {
+    transform: rotate(6deg) scaleX(-1)!important;
+}
+.card.flip.selected, .card.flip.unselected {
+    transform: rotate(0deg) scaleX(-1)!important;
+    scale: 1;
+}
 
 
 .card-img {
@@ -284,12 +314,6 @@ button.disabled {
 }
 
 
-/* .hidden {
-    transition: all 0.5s ease-in-out;
-    opacity: 0;
-    pointer-events: none;
-} */
-
 .spin {
     width: 500px;
     height: 500px;
@@ -371,9 +395,24 @@ button.disabled {
 }
 
 .info-panel {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    width: 100%;
-    color: #000;
+    font-family: 'Lato', sans-serif;
+    color: var(--dark);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 0 50px 50px;
+    width: 500px;
+    max-width: 100%;
+}
+.info-panel h3 {
+    font-family: 'Dimbo', 'Akshar', sans-serif;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: var(--family);
+}
+.info-panel ul {
+    text-align: left;
+    margin-left: 20px;
 }
 
 .no-transition {
