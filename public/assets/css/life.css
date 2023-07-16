@@ -21,6 +21,9 @@
 body {
     overflow-x: hidden;
 }
+.dashboard {
+    min-height: auto;
+}
 
 .green-screen {
     background-color: lime;
@@ -31,8 +34,9 @@ main.life {
     font-family: 'Dimbo', 'Akshar', sans-serif;
     font-weight: 500;
     user-select: none;
-    gap: 150px;
+    gap: 50px 150px;
     padding: 50px;
+    margin-top: 50px;
 }
 
 img {
@@ -397,6 +401,56 @@ p.house-price {
     display: none;
 }
 
+.stream-view {
+    position: fixed;
+    top: 10px; right: 20px;
+    z-index: 1000;
+    font-family: 'Dimbo', 'Akshar', sans-serif;
+}
+.stream-view h2 {
+    font-size: 1.8em;
+    color: var(--action);
+    background-color: #222;
+    padding: 10px 10px 11px;
+    display: inline-block;
+    border-radius: 6px;
+}
+.stream-view button {
+    color: #fff;
+    border: 6px solid transparent;
+    scale: 1;
+    margin: 5px 3px 0;
+    padding: 12px;
+}
+.stream-view #stream-none {
+    background-color: var(--family);
+}
+.stream-view #stream-spinner {
+    background-color: var(--money);
+}
+.stream-view #stream-cards {
+    background-color: var(--career);
+}
+.stream-view button.selected {
+    border: 6px solid #fff;
+    scale: 1.1;
+}
+
+.green-screen main.life {
+    gap: 0;
+    margin: 0;
+}
+.green-screen .spinner-wrap, .green-screen .cards-wrap {
+    zoom: 1.5;
+    position: absolute;
+    transition: all 0.2s ease-in-out;
+    transform-origin: center;
+}
+.green-screen .none {
+    opacity: 0;
+}
+
+
 .personal-view {
     display: flex;
     flex-wrap: wrap;
@@ -412,7 +466,6 @@ p.house-price {
     background-color: #fff;
     padding: 20px;
     border-radius: 20px;
-    /* max-width: 100%; */
     max-width: 800px;
 }
 .personal-view h3, .info-panel h3 {
@@ -511,6 +564,8 @@ p.house-price {
     background-color: var(--family);
     color: #fff;
     text-align: center;
+    position: fixed;
+    bottom: 20px; left: 20px;
 }
 .personal-view button#how-to-play i{
     display: block;
@@ -555,7 +610,11 @@ p.house-price {
 
 
 @media (max-width: 650px) {
+    main.life {
+        margin-top: 120px;
+    }
     .personal-view {
         zoom: .95;
+        margin-bottom: 120px;
     }
   }

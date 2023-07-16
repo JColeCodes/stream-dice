@@ -148,6 +148,21 @@ function addMyCards(card) {
 }
 
 if (document.querySelector('#pick-card-type')) {
+    const streamDisplay = ['stream-none', 'stream-spinner', 'stream-cards'];
+    streamDisplay.forEach(display => {
+        document.querySelector(`#${display}`).addEventListener('click', () => {
+            socket.emit('life', {
+                current: 'stream-display',
+                display: display,
+                streamDisplay: streamDisplay
+            });
+        });
+    });
+    const allButtons =  document.querySelectorAll('main.life button');
+    allButtons.forEach(button => {
+        button.classList.add('disabled');
+    });
+
     document.querySelector('#spin-wheel').addEventListener('click', e=> {
         e.preventDefault();
 
@@ -259,7 +274,7 @@ if (document.querySelector('#pick-card-type')) {
     });
 
     document.querySelector('#how-to-play').addEventListener('click', () => {
-        const infoPanel = window.open('', 'infoPanel', 'width=550,height=722');
+        const infoPanel = window.open('', 'infoPanel', 'width=550,height=700');
         infoPanel.document.write(`
         <html lang="en">
             <head>
@@ -274,6 +289,10 @@ if (document.querySelector('#pick-card-type')) {
                     <h3>How to play</h3>
                     <div class="info-panel-content">
                         <i>Any spin you make, any card you pick, EVERY player can see it.</i>
+                        <h4>Stream Display</h4>
+                        <ul>
+                            <li>This changes the green screen view page for EVERYONE, so all players showing the page in OBS can have a synced overlay. Requires at least one person to click the buttons, but not every single streamer needs to be responsible for toggling their displays on/off in OBS.</li>
+                        </ul>
                         <h4>The Spinner</h4>
                         <ul>
                             <li>The default spinner is the NUMBERS wheel, but you can toggle on the FATE wheel (via the purple button) for when you land on a fate circle.</li>
@@ -299,7 +318,56 @@ if (document.querySelector('#pick-card-type')) {
   
 // Socket on taking in the information from the emit
 socket.on('life', (data) => {
-    if (data.current === 'spinner-spin') {
+    if (data.current === 'stream-display') {
+        const spinner = document.querySelector('.spinner-wrap');
+        const cards = document.querySelector('.cards-wrap');
+        if (document.querySelector(`#${data.display}`)) {
+            data.streamDisplay.forEach(button => {
+                document.querySelector(`#${button}`).classList.remove('selected');
+            });
+            document.querySelector(`#${data.display}`).classList.add('selected');
+
+            const allButtons = 
+            document.querySelectorAll('main.life button');
+            const spinnerButtons = spinner.querySelectorAll('button');
+            const cardButtons = cards.querySelectorAll('button');
+
+            if (data.display === 'stream-none') {
+                allButtons.forEach(button => {
+                    button.classList.add('disabled');
+                });
+            } else if (data.display === 'stream-spinner') {
+                spinnerButtons.forEach(button => {
+                    button.classList.remove('disabled');
+                });
+                cardButtons.forEach(button => {
+                    button.classList.add('disabled');
+                });
+            } else if (data.display === 'stream-cards') {
+                cardButtons.forEach(button => {
+                    button.classList.remove('disabled');
+                });
+                spinnerButtons.forEach(button => {
+                    button.classList.add('disabled');
+                });
+            }
+        }
+        const greenScreen = document.querySelector('.green-screen');
+        if (greenScreen) {
+            if (data.display === 'stream-none') {
+                spinner.classList.add('none');
+                cards.classList.add('none');
+            } else if (data.display === 'stream-spinner') {
+                spinner.classList.remove('none');
+                cards.classList.add('none');
+            } else if (data.display === 'stream-cards') {
+                spinner.classList.add('none');
+                cards.classList.remove('none');
+            }
+        }
+        
+    }
+    else if (data.current === 'spinner-spin') {
         const baseSpin = data.spin%360;
         const spinner = document.querySelector('.spin');
         const resultEl = document.querySelector('#spin-result');

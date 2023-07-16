@@ -1,6 +1,5 @@
 <main class="life">
-    
-    <div class="item">
+    <div class="item spinner-wrap{{#unless loggedIn}} none{{/unless}}">
         <div class="spin" data-type="numbers">
             <img src="/assets/images/LIFE/spinner/spinner-base.svg" alt="Spinner base" class="spinner" />
             
@@ -24,7 +23,7 @@
         {{/if}}
     </div>
 
-    <div class="item">
+    <div class="item cards-wrap{{#unless loggedIn}} none{{/unless}}">
         <div class="card-stack" data-type="reset">
             <div class="card bottom flip card-hidden">
                 <div class="card-wrap">
@@ -80,6 +79,12 @@
             How to Play
             <i>(Opens in new window)</i>
         </button>
+    </div>
+    <div class="item stream-view">
+        <h2>Stream Display:</h2><br />
+        <button id="stream-none" class="selected">None</button>
+        <button id="stream-spinner">Spinner</button>
+        <button id="stream-cards">Cards</button>
     </div>
 {{/if}}
 
