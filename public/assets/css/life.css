@@ -3,6 +3,8 @@
     --house: #f97d2b;
     --action: #f8c837;
     --family: #dd2877;
+    --money: #9465eb;
+    --taxes: #e00006;
     --dark: #1d2328;
 }
 
@@ -22,6 +24,7 @@ body {
 
 .green-screen {
     background-color: lime;
+    overflow: hidden;
 }
 
 main.life {
@@ -86,7 +89,7 @@ button#pick-career, button#pick-house, button#pick-action {
     color: #fff!important;
 }
 .other-btns button#toggle-wheel {
-    background-color: #9465eb!important;
+    background-color: var(--money)!important;
 }
 
 button.disabled {
@@ -205,7 +208,7 @@ button.disabled {
     color: var(--dark);
     font-family: 'Dimbo', 'Akshar', sans-serif;
 }
-.card-img hr {
+.card-img.house hr, .list-house hr {
     height: 1px;
     width: 100%;
     border-top: 1px solid var(--house);
@@ -221,7 +224,7 @@ button.disabled {
     margin-bottom: 10px;
     font-weight: 500;
 }
-.card-img .career-img {
+.career-img {
     border-radius: 20px;
 }
 
@@ -254,10 +257,10 @@ button.disabled {
     font-weight: 500;
 }
 .salary-table .salary li {
-    color: #9465eb;
+    color: var(--money);
 }
 .salary-table .taxes li {
-    color: #e00006;
+    color: var(--taxes);
 }
 
 .card-img .house-description {
@@ -266,7 +269,7 @@ button.disabled {
     color: var(--dark);
     margin-top: 5px;
 }
-.card-img .house-price {
+p.house-price {
     background-color: var(--house);
     color: #fff;
     font-size: 1.8em;
@@ -307,7 +310,7 @@ button.disabled {
     justify-content: start;
 }
 .sell-house .sell-loss {
-    color: #e00006;
+    color: var(--taxes);
 }
 .sell-house .sell-gain {
     color: var(--dark);
@@ -390,30 +393,133 @@ button.disabled {
     margin-top: -18px;
     border: 8px solid #fff;
 }
-.rb-circle.hidden {
+.rb-circle.hidden, .personal-view .hidden {
     display: none;
 }
 
-.info-panel {
-    font-family: 'Lato', sans-serif;
-    color: var(--dark);
+.personal-view {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 0 50px 50px;
+    line-height: 1.1;
+    width: 100%;
+}
+.personal-view .my-cards {
     background-color: #fff;
     padding: 20px;
     border-radius: 20px;
-    margin: 0 50px 50px;
-    width: 500px;
-    max-width: 100%;
+    /* max-width: 100%; */
+    max-width: 800px;
 }
-.info-panel h3 {
+.personal-view h3, .info-panel h3 {
     font-family: 'Dimbo', 'Akshar', sans-serif;
     font-size: 1.8em;
     margin-bottom: 10px;
     color: var(--family);
 }
+.personal-view h4, .info-panel h4 {
+    color: var(--money);
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Dimbo', 'Akshar', sans-serif;
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+.info-panel {
+    position: relative;
+}
+.info-panel .info-content-min {
+    color: var(--family);
+    position: absolute;
+    top: 5px; right: 20px;
+    font-size: 1.7em;
+}
+
+.info-panel, .no-cards-msg, .personal-view .my-cards {
+    font-family: 'Lato', sans-serif;
+    color: var(--dark);
+}
+
+.info-panel {
+    color: #FFF;
+    padding: 30px;
+    line-height: 1.2;
+}
 .info-panel ul {
     text-align: left;
     margin-left: 20px;
 }
+.personal-view .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-around;
+    gap: 20px;
+}
+.personal-view .list-career, .personal-view .list-house {
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 20px;
+    width: 210px;
+    font-family: 'Dimbo', 'Akshar', sans-serif;
+    position: relative;
+}
+.personal-view .card-list h1 {
+    font-size: 2em;
+}
+.personal-view .card-list .career-img {
+    aspect-ratio: 5/3;
+    object-fit: cover;
+    margin-top: 5px;
+}
+.personal-view .card-list .salary-table {
+    margin-top: 5px;
+    justify-content: space-around;
+}
+.personal-view .card-list p.house-price {
+    display: inline-block;
+}
+.personal-view .card-list .salary-table,
+.personal-view .card-list .salary-table ul,
+.personal-view .card-list .sell-house {
+    zoom: .9;
+}
+.personal-view .close-house {
+    position: absolute;
+    top: 10px; right: 10px;
+    color: var(--taxes);
+    font-size: 2em;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+.personal-view .close-house i {
+    pointer-events: none;
+}
+.personal-view .list-house:hover .close-house {
+    opacity: 1;
+    pointer-events: all;
+}
+.personal-view .close-house:hover, .personal-view .info-content-min {
+    cursor: pointer;
+}
+.personal-view button#how-to-play {
+    background-color: var(--family);
+    color: #fff;
+    text-align: center;
+}
+.personal-view button#how-to-play i{
+    display: block;
+    font-size: .8em;
+    font-family: 'Lato', sans-serif;
+    margin: 6px 0 0;
+    text-transform: none;
+}
+
 
 .no-transition {
     transition: none 0s linear;
@@ -426,3 +532,30 @@ button.disabled {
 .disabled {
     pointer-events: none;
 }
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #222;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border: 2px solid #222;
+    border-radius: 6px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #3b3b3b;
+}
+
+
+@media (max-width: 650px) {
+    .personal-view {
+        zoom: .95;
+    }
+  }

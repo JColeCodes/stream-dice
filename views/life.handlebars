@@ -25,7 +25,7 @@
     </div>
 
     <div class="item">
-        <div class="card-stack" data-type="reset" data-select="reset">
+        <div class="card-stack" data-type="reset">
             <div class="card bottom flip card-hidden">
                 <div class="card-wrap">
                     <div class="card-style card-img"></div>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card right flip card-hidden">
+            <div class="card right flip card-hidden" {{#if loggedIn}}data-num=""{{/if}}>
                 <div class="card-wrap">
                     <div class="card-style card-img"></div>
                     <div class="card-style card-back">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card left flip card-hidden">
+            <div class="card left flip card-hidden" {{#if loggedIn}}data-num=""{{/if}}>
                 <div class="card-wrap">
                     <div class="card-style card-img"></div>
                     <div class="card-style card-back">
@@ -70,12 +70,17 @@
 
 {{#if loggedIn}}
 {{!-- For logged-in view only --}}
-    {{!-- <div class="info-panel">
-        <h3>How to play:</h3>
-        <ul>
-            <li>The default spinner</li>
-        </ul>
-    </div> --}}
+    <div class="personal-view">
+        <div class="my-cards">
+            <h3>My Cards</h3>
+            <p class="no-cards-msg">There are currently no cards selected.</p>
+            <div class="card-list"></div>
+        </div>
+        <button id="how-to-play">
+            How to Play
+            <i>(Opens in new window)</i>
+        </button>
+    </div>
 {{/if}}
 
 <script src="/assets/js/life-info.js"></script>
