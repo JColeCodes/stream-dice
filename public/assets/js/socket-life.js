@@ -11,43 +11,98 @@ function randomize(min, max) {
 function displayCard(card, card_type, side) {
     const cardImg = document.querySelector(side).querySelector('.card-img');
     if (card_type === 'career') {
-        cardImg.innerHTML = `<h1>${careerCards[card].title}</h1>
-        <img src="assets/images/LIFE/${card_type}/${careerCards[card].image}.png"
-            alt="${careerCards[card].title}" class="career-img" />
+        const cardCareer = careerCards[card];
+        cardImg.innerHTML = `<h1>${cardCareer.title}</h1>
+        <img src="assets/images/LIFE/${card_type}/${cardCareer.image}.png"
+            alt="${cardCareer.title}" class="career-img" />
         <div class="salary-table">
             <div class="salary">
                 <h2>Salary</h2>
                 <ul>
-                    <li><img src="assets/images/LIFE/icons/money.svg" alt="Base Salary" /> ${careerCards[card].nocollege.salary}k</li>
-                    <li><img src="assets/images/LIFE/icons/college.svg" alt="College Salary" /> ${careerCards[card].college.salary}k</li>
-                    <li><img src="assets/images/LIFE/icons/collegex2.svg" alt="Extended College Salary" /> ${careerCards[card].university.salary}k</li>
+                    <li><img src="assets/images/LIFE/icons/money.svg" alt="Base Salary" /> ${cardCareer.nocollege.salary}k</li>
+                    <li><img src="assets/images/LIFE/icons/college.svg" alt="College Salary" /> ${cardCareer.college.salary}k</li>
+                    <li><img src="assets/images/LIFE/icons/collegex2.svg" alt="Extended College Salary" /> ${cardCareer.university.salary}k</li>
                 </ul>
             </div>
             <div class="taxes">
                 <h2><img src="assets/images/LIFE/icons/taxes.svg" alt="Taxes" /> Taxes</h2>
                 <ul>
-                    <li><img src="assets/images/LIFE/icons/money.svg" alt="Base Tax" /> ${careerCards[card].nocollege.taxes}k</li>
-                    <li><img src="assets/images/LIFE/icons/college.svg" alt="College Tax" /> ${careerCards[card].college.taxes}k</li>
-                    <li><img src="assets/images/LIFE/icons/collegex2.svg" alt="Extended College Tax" /> ${careerCards[card].university.taxes}k</li>
+                    <li><img src="assets/images/LIFE/icons/money.svg" alt="Base Tax" /> ${cardCareer.nocollege.taxes}k</li>
+                    <li><img src="assets/images/LIFE/icons/college.svg" alt="College Tax" /> ${cardCareer.college.taxes}k</li>
+                    <li><img src="assets/images/LIFE/icons/collegex2.svg" alt="Extended College Tax" /> ${cardCareer.university.taxes}k</li>
                 </ul>
             </div>
         </div>`;
     } else if (card_type === 'house') {
-        cardImg.innerHTML = `<h1>${houseCards[card].title}</h1>
-        <img src="assets/images/LIFE/${card_type}/${houseCards[card].image}.png"
-            alt="${houseCards[card].title}" class="house-img" />
-        <p class='house-description'>${houseCards[card].description}</p>
-        <p class='house-price'>$${houseCards[card].price},000</p>
+        const cardHouse = houseCards[card];
+        cardImg.innerHTML = `<h1>${cardHouse.title}</h1>
+        <img src="assets/images/LIFE/${card_type}/${cardHouse.image}.png"
+            alt="${cardHouse.title}" class="house-img" />
+        <p class='house-description'>${cardHouse.description}</p>
+        <p class='house-price'>$${cardHouse.price},000</p>
         <hr />
         <div class='sell-house'>
             <span>SELL!</span>
             <div class='sell-prices'>
-                <p class="sell-loss"><img src="assets/images/LIFE/icons/spintowin-red.svg" alt="Spin Red" /> $${houseCards[card].sell.red},000</p>
-                <p class="sell-gain"><img src="assets/images/LIFE/icons/spintowin-black.svg" alt="Spin Black" /> $${houseCards[card].sell.black},000</p>
+                <p class="sell-loss"><img src="assets/images/LIFE/icons/spintowin-red.svg" alt="Spin Red" /> $${cardHouse.sell.red},000</p>
+                <p class="sell-gain"><img src="assets/images/LIFE/icons/spintowin-black.svg" alt="Spin Black" /> $${cardHouse.sell.black},000</p>
             </div>
         </div>`;
     } else if (card_type === 'action') {
-        cardImg.innerHTML = 'And this one is for ACTION.';
+        const cardAction = actionCards[card];
+        cardImg.innerHTML = `<h1>${cardAction.title}</h1>
+        <img src="assets/images/LIFE/${card_type}/${cardAction.image}.png"
+            alt="${cardAction.title}" class="action-img" />`;
+        const rewards = document.createElement('div');
+        rewards.classList.add('action-rewards');
+        if (cardAction.type !== 'regular') {
+            rewards.classList.add('with-spinner');
+        }
+        if (cardAction.type === 'regular') {
+            if (cardAction.reward.amount === 1) {
+                rewards.innerHTML = `<div class='rewards-icons ${cardAction.reward.icon}'>
+                    <img src="assets/images/LIFE/icons/${cardAction.reward.icon}.svg" alt="Reward: 1 ${cardAction.reward.icon}" />
+                </div>`;
+            } else if (cardAction.reward.amount === 2) {
+                rewards.innerHTML = `<div class='remove-money'>
+                    <img src="assets/images/LIFE/icons/money.svg" alt="Remove Money" /> -100k
+                </div>
+                <div class='rewards-icons ${cardAction.reward.icon}'>
+                    <img src="assets/images/LIFE/icons/${cardAction.reward.icon}.svg" alt="Reward: 2 ${cardAction.reward.icon}s" />
+                    <img src="assets/images/LIFE/icons/${cardAction.reward.icon}.svg" alt="Reward: 2 ${cardAction.reward.icon}s" />
+                </div>`;
+            }
+        } else if (cardAction.type === 'opponent') {
+            rewards.innerHTML = `<div class='spinner-reward'>
+                <img src="assets/images/LIFE/icons/spinner.svg" alt="Spinner Icon" />
+                <span>Select Your Opponent!</span>
+            </div>
+            <div class='action-opponent'>
+                <p class='winner'>Winner - <img src="assets/images/LIFE/icons/money.svg" alt="Money" /> <span class='money-text'>100k</span></p>
+                <p>from Opponent</p>
+            </div>`;
+        } else if (cardAction.type === 'all') {
+            rewards.innerHTML = `<div class='spinner-reward'>
+                <img src="assets/images/LIFE/icons/spinner.svg" alt="Spinner Icon" />
+                <span>All Players Spin</span>
+            </div>
+            <div class='action-all'>
+                <p>1<span class='ordinal'>st</span> - <img src="assets/images/LIFE/icons/money.svg" alt="Money" /> <span class='money-text'>200k</span></p>
+                <p>2<span class='ordinal'>nd</span> - <img src="assets/images/LIFE/icons/money.svg" alt="Money" /> <span class='money-text'>80k</span></p>
+                <p>3<span class='ordinal'>rd</span> - <img src="assets/images/LIFE/icons/money.svg" alt="Money" /> <span class='money-text'>40k</span></p>
+                <p>4<span class='ordinal'>th</span> - <img src="assets/images/LIFE/icons/money.svg" alt="Money" /> <span class='money-text'>10k</span></p>
+            </div>`;
+        } else if (cardAction.type === 'collect') {
+            rewards.innerHTML = `<div class='spinner-reward'>
+                <img src="assets/images/LIFE/icons/spinner.svg" alt="Spinner Icon" />
+                <span>Spin to Win</span>
+            </div>
+            <div class='action-collect'>
+                <p><img src="assets/images/LIFE/icons/spintowin-black.svg" alt="Spin Black" /> - <img src="assets/images/LIFE/icons/money.svg" alt="Money" /> <span class='money-text'>80k</span></p>
+                <p><img src="assets/images/LIFE/icons/spintowin-red.svg" alt="Spin Red" /> - <img src="assets/images/LIFE/icons/money.svg" alt="Money" /> <span class='money-text'>20k</span></p>
+            </div>`;
+        }
+        cardImg.appendChild(rewards);
     }
 }
 
@@ -219,24 +274,31 @@ if (document.querySelector('#pick-card-type')) {
 
         if (leftCard.classList.contains('flip')) {
             if (typeID === 'career') {
-                cardInfoL = randomize(0, 20);
-                cardInfoR = randomize(0, 20);
+                const careerMax = careerCards.length;
+                cardInfoL = randomize(0, careerMax);
+                cardInfoR = randomize(0, careerMax);
 
                 while (cardInfoL === cardInfoR) {
-                    cardInfoR = randomize(0, 20);
+                    cardInfoR = randomize(0, careerMax);
                 }
             }
             else if (typeID === 'house') {
-                cardInfoL = randomize(0, 10);
-                cardInfoR = randomize(0, 10);
+                const houseMax = houseCards.length;
+                cardInfoL = randomize(0, houseMax);
+                cardInfoR = randomize(0, houseMax);
 
                 while (cardInfoL === cardInfoR) {
-                    cardInfoR = randomize(0, 10);
+                    cardInfoR = randomize(0, houseMax);
                 }
             }
             else if (typeID === 'action') {
-                cardInfoL = randomize(0, 1);
-                cardInfoR = randomize(0, 1);
+                const actionMax = actionCards.length;
+                cardInfoL = randomize(0, actionMax);
+                cardInfoR = randomize(0, actionMax);
+
+                while (cardInfoL === cardInfoR) {
+                    cardInfoR = randomize(0, actionMax);
+                }
             }
         }
 

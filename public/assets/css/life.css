@@ -320,6 +320,128 @@ p.house-price {
     color: var(--dark);
 }
 
+.card-stack[data-type='action'] .card-img h1 {
+    text-transform: uppercase;
+    font-size: 2em;
+}
+.action-rewards .remove-money {
+    color: var(--taxes);
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    scale: 1.2;
+}
+.action-rewards img {
+    width: 50px; height: 50px;
+}
+.action-rewards {
+    margin: 20px 0 30px;
+}
+.action-rewards.with-spinner {
+    margin: 15px 0 10px;
+}
+.action-rewards .rewards-icons {
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%);
+    left: 50%;
+    padding: 10px;
+}
+.action-rewards .rewards-icons::before {
+    content: '';
+    display: block;
+    width: 130px;
+    height: 0;
+    opacity: .2;
+    border-bottom: 40px solid var(--action);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+}
+.action-rewards .rewards-icons.heart::before {
+    border-bottom-color: var(--family);
+}
+.action-rewards .rewards-icons.book::before {
+    border-bottom-color: var(--career);
+}
+.action-rewards .rewards-icons.pig::before {
+    border-bottom-color: var(--house);
+}
+
+.action-rewards .spinner-reward {
+    position: absolute;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    width: 100%;
+    left: 0;
+}
+.action-rewards .spinner-reward img {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 25px;
+    top: -10px;
+    z-index: 2;
+}
+.action-rewards .spinner-reward span {
+    border: 1px solid var(--dark);
+    padding: 5px;
+    width: calc(100% - 100px);
+    position: absolute;
+    right: 30px;
+}
+.action-rewards .money-text {
+    color: var(--money);
+}
+
+.action-rewards .action-opponent, .action-rewards .action-collect {
+    margin: 50px 0 -20px;
+}
+.action-rewards .action-all {
+    margin: 60px 0 -20px;
+    zoom: .8;
+}
+.action-rewards p {
+    color: var(--dark);
+}
+.action-rewards .action-opponent p {
+    font-size: 1.5em;
+    margin: -10px 0 0;
+}
+.action-rewards .action-opponent p.winner {
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+.action-rewards .action-all p {
+    font-size: 1.8em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: -20px;
+}
+.action-rewards .action-all span.ordinal {
+    font-size: .7em;
+    align-self: flex-start;
+    margin: 8px 0 0 -3px;
+}
+.action-rewards .action-collect p {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: -10px 0 0;
+}
+.action-rewards .action-collect p img:first-of-type {
+    margin-right: -5px;
+}
+
 
 .spin {
     width: 500px;
@@ -617,4 +739,4 @@ p.house-price {
         zoom: .95;
         margin-bottom: 120px;
     }
-  }
+}
