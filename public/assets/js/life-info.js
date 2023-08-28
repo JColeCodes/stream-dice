@@ -241,3 +241,50 @@ const fateResults = [
     { title: '100K', color: '9465eb', min: 6, max: 8 },
     { title: 'Action', color: 'f7c837', min: 8, max: 10 }
 ];
+
+const howToPlay = `<html lang="en">
+    <head>
+        <title>How To Play</title>
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Luckiest+Guy&family=Milonga&family=Akshar:wght@300;500;700&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link rel='stylesheet' href='/assets/css/style.css' />
+        <link rel='stylesheet' href='/assets/css/life.css' />
+        <link rel='icon' href='/assets/images/fez.png' />
+    </head>
+    <body>
+        <div class="info-panel">
+            <h3>How to play</h3>
+            <div class="info-panel-content">
+                <i>Any spin you make, any card you pick, EVERY player can see it.</i>
+                <h4>Stream Display</h4>
+                <ul>
+                    <li>This changes the green screen view page for EVERYONE, so all players showing the page in OBS can have a synced overlay. Requires at least one person to click the buttons, but not every single streamer needs to be responsible for toggling their displays on/off in OBS.</li>
+                </ul>
+                <h4>The Spinner</h4>
+                <ul>
+                    <li>The default spinner is the NUMBERS wheel, but you can toggle on the FATE wheel (via the purple button) for when you land on a fate circle.</li>
+                    <li>To spin the wheel, you press the "Spin the Wheel" button, which will pop the result in front of the spinner when the spin finishes. You can close the result by pressing the pink "Close Spin Result" button. (It will automatically hide after one minute.)</li>
+                </ul>
+                <h4>The Cards</h4>
+                <ul>
+                    <li>To select a card, press a button to determine which type of card you're selecting. "Career", "House", or "Action". Once selected, the card stack will slide in from the right.</li>
+                    <li>Click on the card stack once to draw 2 cards, which will flip over and show side by side.</li>
+                    <li>You can select your card by clicking on the one you pick. Doing that will put your selected card in the front view.</li>
+                    <li>You can click on your selected card once more to put them back in the stack for the next person.</li>
+                    <li>You can also hide the card stack by pressing the pink "Reset Cards" button, which will put all cards back into the stack and/or move the stack off screen. (It will automatically do this 2 minutes after the initial card stack call.)</li>
+                    <li>All cards listed under "My Cards" are visible only to you in this session. If you refresh, your cards will disappear.</li>
+                    <li>In "My Cards", selecting a new career will replace the career card (only 1 career at a time), but all new houses will be added (you can own multiple houses). To remove a specific house card, hover over the card and a red "x" will appear. Click the "x" to get rid of the card.</li>
+                    <li>The "Turn on/off Bucket List" button will toggle the bucket list (for when you retire at the end), so you can only pull certain types of action cards. The button will turn it on/off for ONLY you, so once you retire, you can just turn it on once.</li>
+                </ul>
+                <h4>The Calculator</h4>
+                <ul>
+                    <li>The calculator is an optional tool to use to tally up your points. You can input your numbers as you play. It is NOT automatic, so you must manually enter the numbers as you play.</li>
+                    <li>The calculator is only visible to you. No one else can see it. They have their own calculators.</li>
+                    <li>Money needs the full money value you have at the end of the game (i.e. 800000 or 135800).</li>
+                    <li>Loans is the number of loans you needed to get during the game. Most people will get 0 loans. But if you do end up getting them, each loan will subtract 100 per loan.</li>
+                    <li>The heart (happiness), book (knowledge), and pig (wealth) are the number of those attributes you collect during the game (from the action cards). Each one is worth 20 points.</li>
+                    <li>If you have the highest number of a certain attribute (or are the first one to get the highest number when there is a tie), you get a CROWN for that attribute. You can select "I have the crown" and it will grant you an additional 400 points.</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>`;

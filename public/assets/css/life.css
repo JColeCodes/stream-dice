@@ -584,7 +584,7 @@ p.house-price {
     line-height: 1.1;
     width: 100%;
 }
-.personal-view .my-cards {
+.personal-view .my-cards, .personal-view .ez-calculator {
     background-color: #fff;
     padding: 20px;
     border-radius: 20px;
@@ -614,7 +614,7 @@ p.house-price {
     font-size: 1.7em;
 }
 
-.info-panel, .no-cards-msg, .personal-view .my-cards {
+.info-panel, .no-cards-msg, .personal-view .my-cards, .personal-view .ez-calculator {
     font-family: 'Lato', sans-serif;
     color: var(--dark);
 }
@@ -695,6 +695,89 @@ p.house-price {
     font-family: 'Lato', sans-serif;
     margin: 6px 0 0;
     text-transform: none;
+}
+
+.ez-calculator .calc-wrap, .ez-calculator .calc-item p {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.ez-calculator .calc-item {
+    display: flex;
+    flex-direction: column;
+}
+.ez-calculator .calc-attr {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 200px;
+    gap: 5px;
+    justify-content: center;
+}
+.ez-calculator .calc-item input {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2em;
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    color: var(--money);
+    width: 80px;
+}
+.ez-calculator .calc-item input#calc-money {
+    width: 220px;
+}
+.ez-calculator .calc-item input:focus {
+    outline: none;
+    border: 1px solid var(--money);
+}
+.ez-calculator .calc-item label {
+    font-family: 'Dimbo', 'Akshar', sans-serif;
+    font-size: 1.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.ez-calculator .calc-item label img {
+    width: 30px;
+}
+.ez-calculator .calc-attr label img {
+    width: 100%;
+}
+.ez-calculator .calc-attr label {
+    width: 60px;
+}
+.ez-calculator .calc-attr span {
+    flex: 100%;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+.ez-calculator .calc-attr span label, .ez-calculator .calc-attr span input {
+    width: auto;
+    font-family: 'Lato', sans-serif;
+    font-size: 1em;
+}
+.ez-calculator input[type=number]::-webkit-inner-spin-button, 
+.ez-calculator input[type=number]::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+.ez-calculator .calc-total {
+    font-family: 'Dimbo', 'Akshar', sans-serif;
+    font-size: 2em;
+    flex-direction: row;
+    gap: 5px;
+}
+.ez-calculator .calc-total span {
+    color: var(--money);
+}
+.ez-calculator hr {
+    width: 100%;
+    height: 1px;
+    border: 1px solid #eee;
+    margin: 10px 50px;
 }
 
 

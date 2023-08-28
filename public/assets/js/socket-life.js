@@ -202,7 +202,23 @@ function addMyCards(card) {
     }
 }
 
+
+let actionMax = actionCards.length;
+
 if (document.querySelector('#pick-card-type')) {
+
+    const cardRetire = document.querySelector('#card-retire');
+    cardRetire.addEventListener('click', e=> {
+        e.preventDefault();
+        if (actionMax === actionCards.length) {
+            cardRetire.textContent = 'Turn off Bucket List';
+            actionMax = 35;
+        } else if (actionMax === 35) {
+            cardRetire.textContent = 'Turn on Bucket List';
+            actionMax = actionCards.length;
+        }
+    });
+
     const streamDisplay = ['stream-none', 'stream-spinner', 'stream-cards'];
     streamDisplay.forEach(display => {
         document.querySelector(`#${display}`).addEventListener('click', () => {
@@ -256,11 +272,13 @@ if (document.querySelector('#pick-card-type')) {
 
             const typeID = button.id.split('-')[1];
 
-            // Emit the following information
-            socket.emit('life', {
-                current: 'card-type',
-                type: typeID
-            });
+            if (typeID !== 'retire') {
+                // Emit the following information
+                socket.emit('life', {
+                    current: 'card-type',
+                    type: typeID
+                });
+            }
         })
     });
 
@@ -292,7 +310,6 @@ if (document.querySelector('#pick-card-type')) {
                 }
             }
             else if (typeID === 'action') {
-                const actionMax = actionCards.length;
                 cardInfoL = randomize(0, actionMax);
                 cardInfoR = randomize(0, actionMax);
 
@@ -337,43 +354,7 @@ if (document.querySelector('#pick-card-type')) {
 
     document.querySelector('#how-to-play').addEventListener('click', () => {
         const infoPanel = window.open('', 'infoPanel', 'width=550,height=700');
-        infoPanel.document.write(`
-        <html lang="en">
-            <head>
-                <title>How To Play</title>
-                <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Luckiest+Guy&family=Milonga&family=Akshar:wght@300;500;700&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-                <link rel='stylesheet' href='/assets/css/style.css' />
-                <link rel='stylesheet' href='/assets/css/life.css' />
-                <link rel='icon' href='/assets/images/fez.png' />
-            </head>
-            <body>
-                <div class="info-panel">
-                    <h3>How to play</h3>
-                    <div class="info-panel-content">
-                        <i>Any spin you make, any card you pick, EVERY player can see it.</i>
-                        <h4>Stream Display</h4>
-                        <ul>
-                            <li>This changes the green screen view page for EVERYONE, so all players showing the page in OBS can have a synced overlay. Requires at least one person to click the buttons, but not every single streamer needs to be responsible for toggling their displays on/off in OBS.</li>
-                        </ul>
-                        <h4>The Spinner</h4>
-                        <ul>
-                            <li>The default spinner is the NUMBERS wheel, but you can toggle on the FATE wheel (via the purple button) for when you land on a fate circle.</li>
-                            <li>To spin the wheel, you press the "Spin the Wheel" button, which will pop the result in front of the spinner when the spin finishes. You can close the result by pressing the pink "Close Spin Result" button. (It will automatically hide after one minute.)</li>
-                        </ul>
-                        <h4>The Cards</h4>
-                        <ul>
-                            <li>To select a card, press a button to determine which type of card you're selecting. "Career", "House", or "Action". Once selected, the card stack will slide in from the right.</li>
-                            <li>Click on the card stack once to draw 2 cards, which will flip over and show side by side.</li>
-                            <li>You can select your card by clicking on the one you pick. Doing that will put your selected card in the front view.</li>
-                            <li>You can click on your selected card once more to put them back in the stack for the next person.</li>
-                            <li>You can also hide the card stack by pressing the pink "Reset Cards" button, which will put all cards back into the stack and/or move the stack off screen. (It will automatically do this 2 minutes after the initial card stack call.)</li>
-                            <li>All cards listed under "My Cards" are visible only to you in this session. If you refresh, your cards will disappear.</li>
-                            <li>In "My Cards", selecting a new career will replace the career card (only 1 career at a time), but all new houses will be added (you can own multiple houses). To remove a specific house card, hover over the card and a red "x" will appear. Click the "x" to get rid of the card.</li>
-                        </ul>
-                    </div>
-                </div>
-            </body>
-        </html>`);
+        infoPanel.document.write(howToPlay);
     });
 
 }
@@ -641,3 +622,50 @@ socket.on('life', (data) => {
         selectCard('right');
     }
 });
+
+if (document.querySelector('.ez-calculator')) {
+    const calcTotal = document.querySelector('#calc-total');
+
+    const calcMoney = document.querySelector('#calc-money');
+    const calcHeart = document.querySelector('#calc-heart');
+    const calcBook = document.querySelector('#calc-book');
+    const calcPig = document.querySelector('#calc-pig');
+    const calcLoans = document.querySelector('#calc-loans');
+
+    const crownHeart = document.querySelector('#crown-heart');
+    const crownBook = document.querySelector('#crown-book');
+    const crownPig = document.querySelector('#crown-pig');
+
+    const calcItems = [calcMoney, calcHeart, calcBook, calcPig, calcLoans, crownHeart, crownBook, crownPig];
+
+    calcItems.forEach(calc => {
+        calc.addEventListener('change', () => {
+            let cHeart = 0;
+            let cBook = 0;
+            let cPig = 0;
+
+            if (crownHeart.checked) {
+                cHeart = 400;
+            } else if (!crownHeart.checked) {
+                cHeart = 0;
+            }
+            if (crownBook.checked) {
+                cBook = 400;
+            } else if (!crownBook.checked) {
+                cBook = 0;
+            }
+            if (crownPig.checked) {
+                cPig = 400;
+            } else if (!crownPig.checked) {
+                cPig = 0;
+            }
+
+            const total = parseInt(calcMoney.value) + (parseInt(calcHeart.value) * 20) + (parseInt(calcBook.value) * 20) + (parseInt(calcPig.value) * 20) + (parseInt(calcLoans.value) * -100) + cHeart + cBook + cPig;
+            if (!isNaN(total)) {
+                calcTotal.textContent = total;
+            } else {
+                calcTotal.textContent = 0;
+            }
+        });
+    });
+}

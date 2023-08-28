@@ -61,6 +61,7 @@
                 <button id="pick-action">Action</button>
                 <div class="other-btns">
                     <button id="card-reset">Reset Cards</button>
+                    <button id="card-retire">Turn on Bucket List</button>
                 </div>
             </div>
         {{/if}}
@@ -75,11 +76,54 @@
             <p class="no-cards-msg">There are currently no cards selected.</p>
             <div class="card-list"></div>
         </div>
+        <div class="ez-calculator">
+            <h3>Calculator</h3>
+            <div class="calc-wrap">
+                <form class="calc-item">
+                    <label for="calc-money"><img src="/assets/images/LIFE/icons/money.svg" alt="Money" /> Money</label>
+                    <input type="number" id="calc-money" name="calc-money" min="0" value="0">
+                </form>
+                <form class="calc-item">
+                    <label for="calc-loans"><img src="/assets/images/LIFE/icons/taxes.svg" alt="Loans" /> Loans</label>
+                    <input type="number" id="calc-loans" name="calc-loans" min="0" value="0">
+                </form>
+                <hr />
+                <form class="calc-item calc-attr">
+                    <label for="calc-heart"><img src="/assets/images/LIFE/icons/heart.svg" alt="Happiness" /></label>
+                    <input type="number" id="calc-heart" name="calc-heart" min="0" value="0">
+                    <span>
+                        <input type="checkbox" id="crown-heart" name="crown-heart" value="I have the crown">
+                        <label for="crown-heart">I have the crown</label>
+                    </span>
+                </form>
+                <form class="calc-item calc-attr">
+                    <label for="calc-book"><img src="/assets/images/LIFE/icons/book.svg" alt="Knowledge" /></label>
+                    <input type="number" id="calc-book" name="calc-book" min="0" value="0">
+                    <span>
+                        <input type="checkbox" id="crown-book" name="crown-book" value="I have the crown">
+                        <label for="crown-book">I have the crown</label>
+                    </span>
+                </form>
+                <form class="calc-item calc-attr">
+                    <label for="calc-pig"><img src="/assets/images/LIFE/icons/pig.svg" alt="Wealth" /></label>
+                    <input type="number" id="calc-pig" name="calc-pig" min="0" value="0">
+                    <span>
+                        <input type="checkbox" id="crown-pig" name="crown-pig" value="I have the crown">
+                        <label for="crown-pig">I have the crown</label>
+                    </span>
+                </form>
+                <hr />
+                <div class="calc-item calc-total">
+                    Total: <span id="calc-total">0</span>
+                </div>
+            </div>
+        </div>
         <button id="how-to-play">
             How to Play
             <i>(Opens in new window)</i>
         </button>
     </div>
+
     <div class="item stream-view">
         <h2>Stream Display:</h2><br />
         <button id="stream-none" class="selected">None</button>
