@@ -460,11 +460,13 @@ p.house-price {
 }
 
 .spinner.fate.show {
-    animation: fateShow 800ms ease-in-out 1 both;
+    animation: fateShow 800ms ease-in-out 1 both,
+               opacity 50ms 800ms ease-out 1 both;
 }
 .spinner.fate.hidden {
     pointer-events: none;
-    animation: fateHide 800ms ease-in-out 1 both;
+    animation: fateHide 800ms ease-in-out 1 both,
+               opacity 50ms 800ms ease-out 1 reverse;
 }
 @keyframes fateShow {
     0% { scale: 0; }
@@ -475,6 +477,10 @@ p.house-price {
     0% { scale: 1; }
     20% { scale: 1.2; }
     100% { scale: 0; }
+}
+@keyframes opacity {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
 .spin .arrow {
