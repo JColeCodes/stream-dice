@@ -443,7 +443,7 @@ p.house-price {
 }
 
 
-.spin {
+.spin, .spin-wheel  {
     width: 500px;
     height: 500px;
     display: flex;
@@ -452,7 +452,7 @@ p.house-price {
     color: var(--family);
     position: relative;
 }
-.spinner {
+.spinner, .spin-wheel {
     position: absolute;
     width: 500px;
     height: 500px;
@@ -469,14 +469,14 @@ p.house-price {
                opacity 50ms 800ms ease-out 1 reverse;
 }
 @keyframes fateShow {
-    0% { scale: 0; }
-    80% { scale: 1.2; }
-    100% { scale: 1; }
+    0% { transform: scale(0); }
+    80% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 @keyframes fateHide {
-    0% { scale: 1; }
-    20% { scale: 1.2; }
-    100% { scale: 0; }
+    0% { transform: scale(1); }
+    20% { transform: scale(1.2); }
+    100% { transform: scale(0); }
 }
 @keyframes opacity {
     0% { opacity: 0; }

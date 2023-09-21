@@ -364,6 +364,12 @@ socket.on('life', (data) => {
     if (data.current === 'stream-display') {
         const spinner = document.querySelector('.spinner-wrap');
         const cards = document.querySelector('.cards-wrap');
+        let delayTime = 0;
+        if (data.display === 'stream-spinner') {
+            delayTime = 12000;
+        } else if (data.display === 'stream-cards') {
+            delayTime = 20000;
+        }
         if (document.querySelector(`#${data.display}`)) {
             data.streamDisplay.forEach(button => {
                 document.querySelector(`#${button}`).classList.remove('selected');
@@ -394,6 +400,16 @@ socket.on('life', (data) => {
                     button.classList.add('disabled');
                 });
             }
+
+            setTimeout(() => {
+                allButtons.forEach(button => {
+                    button.classList.add('disabled');
+                });
+                data.streamDisplay.forEach(button => {
+                    document.querySelector(`#${button}`).classList.remove('selected');
+                });
+                document.querySelector('#stream-none').classList.add('selected');
+            }, delayTime);
         }
         const greenScreen = document.querySelector('.green-screen');
         if (greenScreen) {
@@ -407,6 +423,11 @@ socket.on('life', (data) => {
                 spinner.classList.add('none');
                 cards.classList.remove('none');
             }
+
+            setTimeout(() => {
+                spinner.classList.add('none');
+                cards.classList.add('none');
+            }, delayTime);
         }
         
     }
@@ -427,18 +448,16 @@ socket.on('life', (data) => {
             toggleBtn.classList.add('disabled');
         }
 
-        const spinners = document.querySelectorAll('.spinner');
-        spinners.forEach(spinner => {
-            spinner.style.transform = `rotate(${data.spin}deg)`;
+        const spinWheel = document.querySelector('.spin-wheel');
+        spinWheel.style.transform = `rotate(${data.spin}deg)`;
 
+        setTimeout(() => {
+            spinWheel.classList.add('no-transition');
+            spinWheel.style.transform = `rotate(${baseSpin}deg)`;
             setTimeout(() => {
-                spinner.classList.add('no-transition');
-                spinner.style.transform = `rotate(${baseSpin}deg)`;
-                setTimeout(() => {
-                    spinner.classList.remove('no-transition');
-                }, 100);
-            }, 5500);
-        });
+                spinWheel.classList.remove('no-transition');
+            }, 100);
+        }, 5500);
 
         if (spinner.dataset.type === 'numbers') {
             let number = 0;
@@ -483,7 +502,7 @@ socket.on('life', (data) => {
         }, 5500);
         setTimeout(() => {
             resultEl.classList.add('hidden');
-        }, 60000);
+        }, 12000);
 
     } else if (data.current === 'spinner-toggle') {
         const spinner = document.querySelector('.spin');
@@ -575,7 +594,7 @@ socket.on('life', (data) => {
             setTimeout(() => {
                 card.classList.remove('card-show');
                 card.classList.add('card-hidden');
-            }, 120000);
+            }, 20000);
         });
     } else if (data.current === 'card-flip') {
         let flipTimeout = 0;
@@ -660,7 +679,7 @@ if (document.querySelector('.ez-calculator')) {
                 cPig = 0;
             }
 
-            const total = parseInt(calcMoney.value) + (parseInt(calcHeart.value) * 20) + (parseInt(calcBook.value) * 20) + (parseInt(calcPig.value) * 20) + (parseInt(calcLoans.value) * -100) + cHeart + cBook + cPig;
+            const total = Math.round(parseInt(calcMoney.value) / 1000) + (parseInt(calcHeart.value) * 20) + (parseInt(calcBook.value) * 20) + (parseInt(calcPig.value) * 20) + (parseInt(calcLoans.value) * -100) + cHeart + cBook + cPig;
             if (!isNaN(total)) {
                 calcTotal.textContent = total;
             } else {

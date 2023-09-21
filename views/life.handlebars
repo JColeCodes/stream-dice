@@ -1,12 +1,14 @@
 <main class="life">
     <div class="item spinner-wrap{{#unless loggedIn}} none{{/unless}}">
         <div class="spin" data-type="numbers">
-            <img src="/assets/images/LIFE/spinner/spinner-base.svg" alt="Spinner base" class="spinner" />
+            <div class="spin-wheel">
+                <img src="/assets/images/LIFE/spinner/spinner-base.svg" alt="Spinner base" class="spinner" />
             
-            <img src="/assets/images/LIFE/spinner/spinner-numbers.svg" alt="Number Spinner with numbers 1-10" class="spinner numbers" />
-            <img src="/assets/images/LIFE/spinner/spinner-fate.svg" alt="Fate Spinner with taxes, 100k, action, new career, house, baby" class="spinner fate hidden initial" />
+                <img src="/assets/images/LIFE/spinner/spinner-numbers.svg" alt="Number Spinner with numbers 1-10" class="spinner numbers" />
+                <img src="/assets/images/LIFE/spinner/spinner-fate.svg" alt="Fate Spinner with taxes, 100k, action, new career, house, baby" class="spinner fate hidden initial" />
 
-            <img src="/assets/images/LIFE/spinner/spinner-center.svg" alt="Center of spinner that has alternating red and black" class="spinner" />
+                <img src="/assets/images/LIFE/spinner/spinner-center.svg" alt="Center of spinner that has alternating red and black" class="spinner" />
+            </div>
 
             <img src="/assets/images/LIFE/spinner/spinner-arrow.svg" alt="Arrow that points to which item has been spun" class="arrow" />
             <div class="winning-result hidden" id="spin-result">
